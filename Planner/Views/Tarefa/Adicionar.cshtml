@@ -1,0 +1,67 @@
+﻿@model Planner.Models.Tarefa
+
+@{
+    ViewData["Title"] = "Adicionar Tarefa";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Adicionar" method="post">
+    <div class="form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descricao" class="control-label"></label>
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoriaAtividade" class="control-label"></label>
+        <select asp-for="CategoriaAtividade" class="form-control">
+            <option value="">Selecione</option>
+            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+            {
+                <option value="@categoria">@categoria</option>
+            }
+        </select>
+        <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StatusTarefa" class="control-label"></label>
+        <select asp-for="StatusTarefa" class="form-control">
+            <option value="">Selecione</option>
+            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusTarefa)).Cast<Planner.Models.Enum.StatusTarefa>())
+            {
+                <option value="@status">@status</option>
+            }
+        </select>
+        <span asp-validation-for="StatusTarefa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BlocoDuracao" class="control-label"></label>
+        <select asp-for="BlocoDuracao" class="form-control">
+            <option value="">Selecione</option>
+            @foreach (var bloco in Enum.GetValues(typeof(Planner.Models.Enum.BlocoDuracao)).Cast<Planner.Models.Enum.BlocoDuracao>())
+            {
+                <option value="@bloco">@bloco</option>
+            }
+        </select>
+        <span asp-validation-for="BlocoDuracao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dia" class="control-label"></label>
+        <input asp-for="Dia" class="form-control" type="date" />
+        <span asp-validation-for="Dia" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>

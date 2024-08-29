@@ -1,0 +1,41 @@
+@model IEnumerable<Planner.Models.Lembrete>
+
+@{
+    ViewData["Title"] = "Lista de Lembretes";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Tipo</th>
+            <th>Recorrente Semanal</th>
+            <th>Data e Hora</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lembrete in Model)
+        {
+            <tr>
+                <td>@lembrete.Id</td>
+                <td>@lembrete.Titulo</td>
+                <td>@lembrete.Descricao ?? "Sem descrição"</td>
+                <td>@lembrete.TipoLembrete</td>
+                <td>@(lembrete.RecorrenteSemanal ? "Sim" : "Não")</td>
+                <td>@lembrete.DataHora.ToString("g")</td>
+                <td>
+                    <a href="@Url.Action("Detalhe", "Lembrete", new { id = lembrete.Id })" class="btn btn-info">Detalhes</a>
+                    <a href="@Url.Action("Editar", "Lembrete", new { id = lembrete.Id })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Deletar", "Lembrete", new { id = lembrete.Id })" class="btn btn-danger">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Adicionar", "Lembrete")" class="btn btn-success">Adicionar Novo Lembrete</a>

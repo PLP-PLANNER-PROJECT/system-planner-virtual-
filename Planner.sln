@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner", "Planner\Planner.csproj", "{4FDE2FB3-7394-48C4-9405-1944379F63DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FDE2FB3-7394-48C4-9405-1944379F63DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDE2FB3-7394-48C4-9405-1944379F63DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDE2FB3-7394-48C4-9405-1944379F63DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDE2FB3-7394-48C4-9405-1944379F63DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {150141AA-5AAF-4E0C-B5B8-3A2366C8EAF6}
+	EndGlobalSection
+EndGlobal

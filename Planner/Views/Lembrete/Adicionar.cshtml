@@ -1,0 +1,50 @@
+﻿@model Planner.Models.Lembrete
+
+@{
+    ViewData["Title"] = "Adicionar Lembrete";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Adicionar" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descricao" class="control-label"></label>
+        <textarea asp-for="Descricao" class="form-control"></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TipoLembrete" class="control-label"></label>
+        <select asp-for="TipoLembrete" class="form-control" asp-items="Html.GetEnumSelectList<Planner.Models.Enum.TipoLembrete>()"></select>
+        <span asp-validation-for="TipoLembrete" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RecorrenteSemanal" class="control-label"></label>
+        <input asp-for="RecorrenteSemanal" class="form-control" type="checkbox" />
+        <span asp-validation-for="RecorrenteSemanal" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DataHora" class="control-label"></label>
+        <input asp-for="DataHora" class="form-control" type="datetime-local" />
+        <span asp-validation-for="DataHora" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Adicionar" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

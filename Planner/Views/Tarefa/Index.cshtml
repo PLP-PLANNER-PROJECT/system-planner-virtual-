@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Planner.Models.Tarefa>
+
+@{
+    ViewData["Title"] = "Tarefas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="get">
+    <div class="form-group">
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria" class="form-control">
+            <option value="">Todas</option>
+            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+            {
+                <option value="@categoria">@categoria</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status" class="form-control">
+            <option value="">Todos</option>
+            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusTarefa)).Cast<Planner.Models.Enum.StatusTarefa>())
+            {
+                <option value="@status">@status</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Status</th>
+            <th>Bloco de Duração</th>
+            <th>Dia</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarefa in Model)
+        {
+            <tr>
+                <td>@tarefa.Id</td>
+                <td>@tarefa.Titulo</td>
+                <td>@tarefa.Descricao</td>
+                <td>@tarefa.CategoriaAtividade</td>
+                <td>@tarefa.StatusTarefa</td>
+                <td>@tarefa.BlocoDuracao</td>
+                <td>@tarefa.Dia.ToShortDateString()</td>
+                <td>
+                    <a href="@Url.Action("Detalhes", new { id = tarefa.Id })" class="btn btn-info">Detalhes</a>
+                    <a href="@Url.Action("Editar", new { id = tarefa.Id })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Deletar", new { id = tarefa.Id })" class="btn btn-danger">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Adicionar")" class="btn btn-success">Adicionar Nova Tarefa</a>

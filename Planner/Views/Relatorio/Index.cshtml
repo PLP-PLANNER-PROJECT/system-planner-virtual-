@@ -1,0 +1,15 @@
+﻿@using Planner.Helpers 
+
+@{
+    ViewData["Title"] = "Seleção de Relatório";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Escolha o tipo de relatório que deseja gerar:</p>
+
+<div class="btn-group" role="group">
+    <a href="@Url.Action("RelatorioSemanal", "Relatorio", new { inicioSemana = DateTime.Now.StartOfWeek() })" class="btn btn-primary">Relatório Semanal</a>
+    <a href="@Url.Action("RelatorioMensal", "Relatorio", new { mes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) })" class="btn btn-primary">Relatório Mensal</a>
+    <a href="@Url.Action("RelatorioAnual", "Relatorio", new { ano = new DateTime(DateTime.Now.Year, 1, 1) })" class="btn btn-primary">Relatório Anual</a>
+</div>

@@ -1,0 +1,33 @@
+﻿@model Planner.Models.Tarefa
+
+@{
+    ViewData["Title"] = "Deletar Tarefa";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Você tem certeza de que deseja excluir a tarefa <b>@Model.Titulo</b>?</h4>
+    <dl class="row">
+        <dt class="col-sm-2">Descrição</dt>
+        <dd class="col-sm-10">@Model.Descricao</dd>
+
+        <dt class="col-sm-2">Categoria</dt>
+        <dd class="col-sm-10">@Model.CategoriaAtividade</dd>
+
+        <dt class="col-sm-2">Status</dt>
+        <dd class="col-sm-10">@Model.StatusTarefa</dd>
+
+        <dt class="col-sm-2">Bloco de Duração</dt>
+        <dd class="col-sm-10">@Model.BlocoDuracao</dd>
+
+        <dt class="col-sm-2">Dia</dt>
+        <dd class="col-sm-10">@Model.Dia.ToShortDateString()</dd>
+    </dl>
+
+    <form asp-action="Deletar" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

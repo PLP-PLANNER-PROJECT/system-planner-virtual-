@@ -1,0 +1,19 @@
+﻿@model Planner.Models.Meta
+
+@{
+    ViewData["Title"] = "Deletar Meta";
+}
+
+<h1>Deletar Meta</h1>
+
+<form asp-action="DeletarConfirmado" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <h4>Tem certeza que deseja deletar a meta "@Model.Titulo"?</h4>
+        <div>
+            <button type="submit" class="btn btn-danger">Deletar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
