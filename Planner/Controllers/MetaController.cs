@@ -2,6 +2,9 @@
 using Planner.Models.Enum;
 using Planner.Models;
 using Planner.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Planner.Controllers
@@ -18,7 +21,7 @@ namespace Planner.Controllers
 
         // GET: /Meta
         [HttpGet]
-        public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusMeta? status = null)
+        public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusMeta? status = null, [FromQuery] int? mes = null, [FromQuery] int? ano = null)
         {
             IEnumerable<Meta> metas;
 
@@ -35,9 +38,21 @@ namespace Planner.Controllers
                 metas = await _metaService.GetAllMetasAsync();
             }
 
+            if (mes.HasValue)
+            {
+                metas = metas.Where(m => m.Prazo.Month == mes.Value);
+            }
+
+            if (ano.HasValue)
+            {
+                metas = metas.Where(m => m.Prazo.Year == ano.Value);
+            }
+
+            // Ordenar as metas pela data (Prazo)
+            metas = metas.OrderBy(m => m.Prazo);
+
             return View(metas.ToList()); // Convertendo IEnumerable<Meta> para List<Meta>
         }
-
 
         // GET: /Meta/Detalhes/5
         [HttpGet("Detalhes/{id}")]

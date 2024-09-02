@@ -6,37 +6,64 @@
 
 <h1>Lista de Metas</h1>
 
-<p>
-    <a asp-action="Adicionar" class="btn btn-primary">Adicionar Nova Meta</a>
-</p>
+<form method="get" class="mt-3">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" name="categoria" class="form-control">
+                    <option value="">Todas</option>
+                    @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+                    {
+                        <option value="@categoria">@categoria</option>
+                    }
+                </select>
+            </div>
+        </div>
 
-<form method="get">
-    <div class="form-group">
-        <label for="categoria">Categoria</label>
-        <select id="categoria" name="categoria" class="form-control">
-            <option value="">Todas</option>
-            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
-            {
-                <option value="@categoria">@categoria</option>
-            }
-        </select>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" class="form-control">
+                    <option value="">Todos</option>
+                    @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusMeta)).Cast<Planner.Models.Enum.StatusMeta>())
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="mes">Mês</label>
+                <select id="mes" name="mes" class="form-control">
+                    <option value="">Todos</option>
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="ano">Ano</label>
+                <select id="ano" name="ano" class="form-control">
+                    <option value="">Todos</option>
+                    @for (int i = DateTime.Now.Year - 10; i <= DateTime.Now.Year + 10; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="status">Status</label>
-        <select id="status" name="status" class="form-control">
-            <option value="">Todos</option>
-            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusMeta)).Cast<Planner.Models.Enum.StatusMeta>())
-            {
-                <option value="@status">@status</option>
-            }
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Filtrar</button>
+    <button type="submit" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Filtrar</button>
 </form>
 
-<table class="table">
+<table class="table mt-3">
     <thead>
         <tr>
             <th>Título</th>
@@ -49,17 +76,22 @@
     <tbody>
         @foreach (var meta in Model)
         {
-            <tr>
+            var isSuccess = meta.StatusMeta == Planner.Models.Enum.StatusMeta.sucesso;
+            var isExpired = meta.Prazo <= DateTime.Now;
+            var rowClass = isSuccess ? "meta-sucesso" : isExpired ? "meta-expirada" : "";
+            <tr class="@rowClass">
                 <td>@meta.Titulo</td>
                 <td>@meta.CategoriaAtividade</td>
                 <td>@meta.StatusMeta</td>
                 <td>@meta.Prazo.ToShortDateString()</td>
                 <td>
-                    <a asp-action="Detalhes" asp-route-id="@meta.Id" class="btn btn-info">Detalhes</a>
-                    <a asp-action="Editar" asp-route-id="@meta.Id" class="btn btn-warning">Editar</a>
-                    <a asp-action="Deletar" asp-route-id="@meta.Id" class="btn btn-danger">Deletar</a>
+                    <a asp-action="Detalhes" asp-route-id="@meta.Id" class="btn btn-info" style="background-color: #ceb751; border-color: #ceb751; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Detalhes</a>
+                    <a asp-action="Editar" asp-route-id="@meta.Id" class="btn btn-warning" style="background-color: #d6e9b8; border-color: #dae8c4; color: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Editar</a>
+                    <a asp-action="Deletar" asp-route-id="@meta.Id" class="btn btn-danger" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Deletar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<a asp-action="Adicionar" class="btn btn-primary" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Adicionar Nova Meta</a>

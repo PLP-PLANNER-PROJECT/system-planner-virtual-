@@ -108,7 +108,6 @@ namespace Planner.Controllers
             return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após deletar o lembrete
         }
 
-
         // GET: /Lembrete/Processar
         public async Task<IActionResult> Processar()
         {

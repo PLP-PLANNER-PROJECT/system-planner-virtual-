@@ -9,7 +9,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Título</th>
             <th>Descrição</th>
             <th>Tipo</th>
@@ -21,21 +20,30 @@
     <tbody>
         @foreach (var lembrete in Model)
         {
-            <tr>
-                <td>@lembrete.Id</td>
+            var rowClass = "lembrete-futuro";
+            if (lembrete.DataHora < DateTime.Now)
+            {
+                rowClass = "lembrete-passado";
+            }
+            else if (lembrete.DataHora.Date == DateTime.Now.Date)
+            {
+                rowClass = "lembrete-hoje";
+            }
+
+            <tr class="@rowClass">
                 <td>@lembrete.Titulo</td>
                 <td>@lembrete.Descricao ?? "Sem descrição"</td>
                 <td>@lembrete.TipoLembrete</td>
                 <td>@(lembrete.RecorrenteSemanal ? "Sim" : "Não")</td>
                 <td>@lembrete.DataHora.ToString("g")</td>
                 <td>
-                    <a href="@Url.Action("Detalhe", "Lembrete", new { id = lembrete.Id })" class="btn btn-info">Detalhes</a>
-                    <a href="@Url.Action("Editar", "Lembrete", new { id = lembrete.Id })" class="btn btn-warning">Editar</a>
-                    <a href="@Url.Action("Deletar", "Lembrete", new { id = lembrete.Id })" class="btn btn-danger">Deletar</a>
+                    <a href="@Url.Action("Detalhe", "Lembrete", new { id = lembrete.Id })" class="btn btn-info" style="background-color: #ceb751; border-color: #ceb751; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Detalhes</a>
+                    <a href="@Url.Action("Editar", "Lembrete", new { id = lembrete.Id })" class="btn btn-warning btn-shadow" style="background-color: #d6e9b8; border-color: #dae8c4; color: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Editar</a>
+                    <a href="@Url.Action("Deletar", "Lembrete", new { id = lembrete.Id })" class="btn btn-danger btn-shadow" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Deletar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a href="@Url.Action("Adicionar", "Lembrete")" class="btn btn-success">Adicionar Novo Lembrete</a>
+<a href="@Url.Action("Adicionar", "Lembrete")" class="btn btn-success" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Adicionar Novo Lembrete</a>

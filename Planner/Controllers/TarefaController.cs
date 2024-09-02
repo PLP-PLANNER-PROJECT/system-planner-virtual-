@@ -2,6 +2,9 @@
 using Planner.Models.Enum;
 using Planner.Models;
 using Planner.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +20,7 @@ namespace Planner.Controllers
         }
 
         // GET: /Tarefa
-        public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusTarefa? status = null)
+        public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusTarefa? status = null, [FromQuery] int? mes = null, [FromQuery] int? ano = null)
         {
             IEnumerable<Tarefa> tarefas;
 
@@ -37,6 +40,20 @@ namespace Planner.Controllers
             {
                 tarefas = await _tarefaService.GetAllTarefasAsync();
             }
+
+            // Filtra por mês e ano, se fornecidos
+            if (mes.HasValue)
+            {
+                tarefas = tarefas.Where(t => t.Dia.Month == mes.Value);
+            }
+
+            if (ano.HasValue)
+            {
+                tarefas = tarefas.Where(t => t.Dia.Year == ano.Value);
+            }
+
+            // Ordena as tarefas por data
+            tarefas = tarefas.OrderBy(t => t.Dia);
 
             return View(tarefas); // Renderiza a view 'Index' com a lista de tarefas
         }
@@ -122,8 +139,6 @@ namespace Planner.Controllers
 
             return View(tarefaAtualizada);
         }
-
-
 
         // GET: /Tarefa/Deletar/5
         public async Task<IActionResult> Deletar(int id)
