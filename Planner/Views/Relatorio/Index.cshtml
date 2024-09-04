@@ -9,7 +9,7 @@
 <p>Escolha o tipo de relatório que deseja gerar:</p>
 
 <div class="btn-group" role="group">
-    <a href="@Url.Action("RelatorioSemanal", "Relatorio", new { inicioSemana = DateTime.Now.StartOfWeek() })" class="btn btn-primary">Relatório Semanal</a>
-    <a href="@Url.Action("RelatorioMensal", "Relatorio", new { mes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) })" class="btn btn-primary">Relatório Mensal</a>
-    <a href="@Url.Action("RelatorioAnual", "Relatorio", new { ano = new DateTime(DateTime.Now.Year, 1, 1) })" class="btn btn-primary">Relatório Anual</a>
+    <a href="@Url.Action("RelatorioSemanal", "Relatorio", new { inicioSemana = DateTime.Now.StartOfWeek() })" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Relatório Semanal</a>
+    <a href="@Url.Action("RelatorioMensal", "Relatorio", new { mes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) })" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Relatório Mensal</a>
+    <a href="@Url.Action("RelatorioAnual", "Relatorio", new { ano = new DateTime(DateTime.Now.Year, 1, 1) })" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Relatório Anual</a>
 </div>

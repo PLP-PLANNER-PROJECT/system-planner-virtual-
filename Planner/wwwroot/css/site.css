@@ -20,3 +20,36 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.meta-expirada {
+  background-color: #ce854d;
+  color: white;
+}
+
+.meta-sucesso {
+  background-color: #d9d987;
+  color: black;
+}
+
+.lembrete-passado {
+  background-color: #ce854d;
+  color: white;
+}
+.lembrete-hoje {
+  background-color: #d9d987;
+  color: black;
+}
+.lembrete-futuro {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+.tarefa-passada {
+  background-color: #ce854d;
+  color: white;
+}
+.tarefa-executada {
+  background-color: #d9d987;
+  color: black;
+}
+

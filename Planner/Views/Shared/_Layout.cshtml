@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="~/Planner.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+    <header style="background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Planner</a>
+            <div class="container-fluid" style="background-color: #ce854d; border-color: #ce854d; margin-top: -8px; margin-bottom: -8px; height:4em;">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style=" vertical-align: middle; color: white; font-size: 2em;">
+                     <img src="~/images/planner.png" alt="Logo" style=" vertical-align: middle; width: 2.4em;">
+                    PLANNER</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,19 +22,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 1.2em;">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Lembrete" asp-action="Index">Lembretes</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Lembrete" asp-action="Index" style="font-size: 1.2em;">Lembretes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Meta" asp-action="Index">Metas</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Meta" asp-action="Index" style="font-size: 1.2em;">Metas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tarefa" asp-action="Index">Tarefas</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Tarefa" asp-action="Index" style="font-size: 1.2em;">Tarefas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Relatorio" asp-action="Index">Relatorios</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Relatorio" asp-action="Index" style="font-size: 1.2em;">Relatórios</a>
                         </li>
                     </ul>
                 </div>

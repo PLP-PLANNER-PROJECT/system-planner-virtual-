@@ -1,5 +1,8 @@
 ﻿using Planner.IRepository;
 using Planner.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Planner.Service
 {
@@ -14,7 +17,8 @@ namespace Planner.Service
 
         public async Task<IEnumerable<Lembrete>> GetLembretesAsync()
         {
-            return await _lembreteRepository.GetLembretesAsync();
+            var lembretes = await _lembreteRepository.GetLembretesAsync();
+            return lembretes.OrderBy(l => l.DataHora); // Ordena por DataHora
         }
 
         public async Task<Lembrete?> GetLembreteByIdAsync(int id)

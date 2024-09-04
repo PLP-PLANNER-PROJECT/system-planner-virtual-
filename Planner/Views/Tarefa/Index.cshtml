@@ -6,36 +6,66 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form method="get">
-    <div class="form-group">
-        <label for="categoria">Categoria</label>
-        <select id="categoria" name="categoria" class="form-control">
-            <option value="">Todas</option>
-            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
-            {
-                <option value="@categoria">@categoria</option>
-            }
-        </select>
-    </div>
+<form method="get" class="mt-3">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" name="categoria" class="form-control">
+                    <option value="">Todas</option>
+                    @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+                    {
+                        <option value="@categoria">@categoria</option>
+                    }
+                </select>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="status">Status</label>
-        <select id="status" name="status" class="form-control">
-            <option value="">Todos</option>
-            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusTarefa)).Cast<Planner.Models.Enum.StatusTarefa>())
-            {
-                <option value="@status">@status</option>
-            }
-        </select>
-    </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" class="form-control">
+                    <option value="">Todos</option>
+                    @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusTarefa)).Cast<Planner.Models.Enum.StatusTarefa>())
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+            </div>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Filtrar</button>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="mes">Mês</label>
+                <select id="mes" name="mes" class="form-control">
+                    <option value="">Todos</option>
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="ano">Ano</label>
+                <select id="ano" name="ano" class="form-control">
+                    <option value="">Todos</option>
+                    @for (int i = DateTime.Now.Year - 10; i <= DateTime.Now.Year + 10; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Filtrar</button>
 </form>
 
-<table class="table">
+<table class="table mt-3">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Título</th>
             <th>Descrição</th>
             <th>Categoria</th>
@@ -48,8 +78,17 @@
     <tbody>
         @foreach (var tarefa in Model)
         {
-            <tr>
-                <td>@tarefa.Id</td>
+            var rowClass = "";
+            if (tarefa.Dia < DateTime.Now.Date && tarefa.StatusTarefa != Planner.Models.Enum.StatusTarefa.executada)
+            {
+                rowClass = "tarefa-passada";
+            }
+            else if (tarefa.StatusTarefa == Planner.Models.Enum.StatusTarefa.executada)
+            {
+                rowClass = "tarefa-executada";
+            }
+
+            <tr class="@rowClass">
                 <td>@tarefa.Titulo</td>
                 <td>@tarefa.Descricao</td>
                 <td>@tarefa.CategoriaAtividade</td>
@@ -57,13 +96,14 @@
                 <td>@tarefa.BlocoDuracao</td>
                 <td>@tarefa.Dia.ToShortDateString()</td>
                 <td>
-                    <a href="@Url.Action("Detalhes", new { id = tarefa.Id })" class="btn btn-info">Detalhes</a>
-                    <a href="@Url.Action("Editar", new { id = tarefa.Id })" class="btn btn-warning">Editar</a>
-                    <a href="@Url.Action("Deletar", new { id = tarefa.Id })" class="btn btn-danger">Deletar</a>
+                    <a href="@Url.Action("Detalhes", new { id = tarefa.Id })" class="btn btn-info" style="background-color: #ceb751; border-color: #ceb751; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Detalhes</a>
+                    <a href="@Url.Action("Editar", new { id = tarefa.Id })" class="btn btn-warning" style="background-color: #d6e9b8; border-color: #dae8c4; color: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Editar</a>
+                    <a href="@Url.Action("Deletar", new { id = tarefa.Id })" class="btn btn-danger" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Deletar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a href="@Url.Action("Adicionar")" class="btn btn-success">Adicionar Nova Tarefa</a>
+<div>
+    <a href="@Url.Action("Adicionar")" class="btn btn-success" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Adicionar Nova Tarefa</a>
+</div>
