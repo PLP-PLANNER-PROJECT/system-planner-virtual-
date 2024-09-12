@@ -2,7 +2,20 @@
 
 @{
     ViewData["Title"] = "Tarefas";
+
+    // Definindo cores para cada categoria
+    var categoriaCores = new Dictionary<Planner.Models.Enum.Categoria, string>
+    {
+        { Planner.Models.Enum.Categoria.Trabalho, "#ff8c00" },  // Laranja
+        { Planner.Models.Enum.Categoria.Pessoal, "#1e90ff" },   // Azul
+        { Planner.Models.Enum.Categoria.Estudo, "#32cd32" },    // Verde
+        { Planner.Models.Enum.Categoria.Saude, "#ff1493" },     // Rosa
+        { Planner.Models.Enum.Categoria.Lazer, "#ff4500" },     // Vermelho
+        { Planner.Models.Enum.Categoria.Outros, "#8a2be2" }     // Roxo
+    };
 }
+
+
 
 <h2>@ViewData["Title"]</h2>
 
@@ -59,6 +72,21 @@
                 </select>
             </div>
         </div>
+        <!-- Campo para Data Início -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="dataInicio">Data Início</label>
+                <input type="date" id="dataInicio" name="dataInicio" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+
+        <!-- Campo para Data Fim -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="dataFim">Data Fim</label>
+                <input type="date" id="dataFim" name="dataFim" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
     </div>
     <button type="submit" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Filtrar</button>
 </form>
@@ -67,9 +95,9 @@
     <thead>
         <tr>
             <th>Título</th>
-            <th>Descrição</th>
+            
             <th>Categoria</th>
-            <th>Status</th>
+            
             <th>Bloco de Duração</th>
             <th>Dia</th>
             <th>Ações</th>
@@ -78,6 +106,10 @@
     <tbody>
         @foreach (var tarefa in Model)
         {
+            var categoriaCor = categoriaCores.ContainsKey(tarefa.CategoriaAtividade)
+            ? categoriaCores[tarefa.CategoriaAtividade]
+            : "#000000"; // Cor padrão se a categoria não for encontrada
+
             var rowClass = "";
             if (tarefa.Dia < DateTime.Now.Date && tarefa.StatusTarefa != Planner.Models.Enum.StatusTarefa.executada)
             {
@@ -90,15 +122,34 @@
 
             <tr class="@rowClass">
                 <td>@tarefa.Titulo</td>
-                <td>@tarefa.Descricao</td>
-                <td>@tarefa.CategoriaAtividade</td>
-                <td>@tarefa.StatusTarefa</td>
+                <td style="color: @categoriaCor">@tarefa.CategoriaAtividade</td> <!-- Categoria com cor -->
                 <td>@tarefa.BlocoDuracao</td>
                 <td>@tarefa.Dia.ToShortDateString()</td>
                 <td>
                     <a href="@Url.Action("Detalhes", new { id = tarefa.Id })" class="btn btn-info" style="background-color: #ceb751; border-color: #ceb751; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Detalhes</a>
                     <a href="@Url.Action("Editar", new { id = tarefa.Id })" class="btn btn-warning" style="background-color: #d6e9b8; border-color: #dae8c4; color: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Editar</a>
                     <a href="@Url.Action("Deletar", new { id = tarefa.Id })" class="btn btn-danger" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Deletar</a>
+                   
+                    <!-- Dropdown para alterar o status -->
+                    <form asp-action="AlterarStatus" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@tarefa.Id" />
+                        <select name="novoStatus" class="form-control d-inline w-auto">
+                            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusTarefa)))
+                            {
+                                if (tarefa.StatusTarefa == (Planner.Models.Enum.StatusTarefa)status)
+                                {
+                                    <option value="@status" selected>@status</option>
+                                }
+                                else
+                                {
+                                    <option value="@status">@status</option>
+                                }
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-secondary">Alterar Status</button>
+                    </form>
+
+
                 </td>
             </tr>
         }
