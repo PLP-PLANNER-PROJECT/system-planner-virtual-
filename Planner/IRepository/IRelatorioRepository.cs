@@ -9,5 +9,6 @@ namespace Planner.Repository
         Task<Relatorio> GerarRelatorioSemanalAsync(DateTime inicioSemana);
         Task<Relatorio> GerarRelatorioMensalAsync(DateTime inicioMes);
         Task<Relatorio> GerarRelatorioAnualAsync(DateTime inicioAno);
+        Task<Relatorio> GerarRelatorioPorPeriodoAsync(DateTime dataInicio, DateTime dataFim);
     }
 }

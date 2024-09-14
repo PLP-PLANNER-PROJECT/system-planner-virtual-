@@ -28,5 +28,10 @@ namespace Planner.Service
         {
             return await _relatorioRepository.GerarRelatorioAnualAsync(inicioAno);
         }
+
+        public async Task<Relatorio> GerarRelatorioPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
+        {
+            return await _relatorioRepository.GerarRelatorioPorPeriodoAsync(dataInicio, dataFim);
+        }
     }
 }

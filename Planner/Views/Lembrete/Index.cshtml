@@ -10,7 +10,6 @@
     <thead>
         <tr>
             <th>Título</th>
-            <th>Descrição</th>
             <th>Tipo</th>
             <th>Recorrente Semanal</th>
             <th>Data e Hora</th>
@@ -32,7 +31,6 @@
 
             <tr class="@rowClass">
                 <td>@lembrete.Titulo</td>
-                <td>@lembrete.Descricao ?? "Sem descrição"</td>
                 <td>@lembrete.TipoLembrete</td>
                 <td>@(lembrete.RecorrenteSemanal ? "Sim" : "Não")</td>
                 <td>@lembrete.DataHora.ToString("g")</td>
