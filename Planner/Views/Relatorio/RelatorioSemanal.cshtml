@@ -15,37 +15,65 @@
     </thead>
     <tbody>
         <tr>
+            <td>Quantidade de Metas Criadas</td>
+            <td>@Model.QuantidadeMetasCriadas</td>
+        </tr>
+
+        <tr>
             <td>Quantidade de Metas Cumpridas</td>
             <td>@Model.QuantidadeMetasCumpridas</td>
         </tr>
+
         <tr>
             <td>Porcentagem de Metas Cumpridas</td>
             <td>@Model.PorcentagemMetasCumpridas%</td>
         </tr>
+
+        <tr>
+            <td>Quantidade de Metas não atingidas</td>
+            <td>@Model.QuantidadeMetasNaoCumpridas</td>
+        </tr>
+
+        <tr>
+            <td>Quantidade de Tarefas Criadas</td>
+            <td>@Model.QuantidadeTarefasCriadas</td>
+        </tr>
+
         <tr>
             <td>Quantidade de Tarefas Executadas</td>
             <td>@Model.QuantidadeTarefasExecutadas</td>
         </tr>
+
         <tr>
             <td>Porcentagem de Tarefas Executadas</td>
             <td>@Model.PorcentagemTarefasExecutadas%</td>
         </tr>
+
+        <tr>
+            <td>Quantidade de Tarefas não executadas</td>
+            <td>@Model.QuantidadeTarefasNaoExecutadas</td>
+        </tr>
+
         <tr>
             <td>Semanas Mais Produtivas</td>
             <td>@Model.SemanasMaisProdutivas</td>
         </tr>
+
         <tr>
             <td>Meses Mais Produtivos</td>
             <td>@Model.MesesMaisProdutivos</td>
         </tr>
+
         <tr>
             <td>Turnos Mais Produtivos</td>
             <td>@Model.TurnosMaisProdutivos</td>
         </tr>
+
         <tr>
             <td>Categoria de Tarefa Mais Realizada</td>
             <td>@Model.CategoriaTarefaMaisRealizada</td>
         </tr>
+
         <tr>
             <td>Categoria de Meta Mais Realizada</td>
             <td>@Model.CategoriaMetaMaisRealizada</td>
@@ -54,4 +82,3 @@
 </table>
 
 <a href="@Url.Action("Index", "Relatorio")" class="btn btn-secondary">Voltar</a>
-

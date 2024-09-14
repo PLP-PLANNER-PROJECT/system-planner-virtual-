@@ -39,5 +39,12 @@ namespace Planner.Controllers
             var relatorio = await _relatorioService.GerarRelatorioAnualAsync(ano);
             return View("RelatorioAnual", relatorio);
         }
+
+        public async Task<IActionResult> RelatorioPorPeriodo(DateTime dataInicio, DateTime dataFim)
+        {
+            var relatorio = await _relatorioService.GerarRelatorioPorPeriodoAsync(dataInicio, dataFim);
+            return View("RelatorioPorPeriodo", relatorio);
+        }
+
     }
 }
