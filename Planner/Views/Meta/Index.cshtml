@@ -63,6 +63,24 @@
     <button type="submit" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Filtrar</button>
 </form>
 
+<style>
+    .meta-sucesso {
+        background-color: #b7db6f; /* Verde mais forte para metas com sucesso */
+    }
+
+    .meta-semSucesso {
+        background-color: #f1948a; /* Vermelho mais forte para metas sem sucesso */
+    }
+
+     .meta-parcialmenteAtingidas {
+        background-color: #ffdf7e; /* Amarelo mais forte para metas parcialmente atingidas */
+    }
+
+    .meta-naoIniciada {
+        background-color: #ffffff; /* Branco para metas não iniciadas */
+    }
+</style>
+
 <table class="table mt-3">
     <thead>
         <tr>
@@ -76,9 +94,15 @@
     <tbody>
         @foreach (var meta in Model)
         {
-            var isSuccess = meta.StatusMeta == Planner.Models.Enum.StatusMeta.sucesso;
-            var isExpired = meta.Prazo <= DateTime.Now;
-            var rowClass = isSuccess ? "meta-sucesso" : isExpired ? "meta-expirada" : "";
+            var rowClass = meta.StatusMeta switch
+            {
+                Planner.Models.Enum.StatusMeta.sucesso => "meta-sucesso",
+                Planner.Models.Enum.StatusMeta.semSucesso => "meta-semSucesso",
+                Planner.Models.Enum.StatusMeta.parcialmenteAtingidas => "meta-parcialmenteAtingidas",
+                Planner.Models.Enum.StatusMeta.NãoIniciada => "meta-naoIniciada",
+                _ => ""
+            };
+
             <tr class="@rowClass">
                 <td>@meta.Titulo</td>
                 <td>@meta.CategoriaAtividade</td>
