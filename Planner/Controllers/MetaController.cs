@@ -142,13 +142,16 @@ namespace Planner.Controllers
         public async Task<IActionResult> DeletarConfirmado(int id)
         {
             var meta = await _metaService.GetMetaByIdAsync(id);
+
             if (meta == null)
             {
                 return NotFound();
             }
 
             await _metaService.DeleteMetaAsync(id);
-            return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após deletar a meta
+
+            return RedirectToAction(nameof(Index)); // Redireciona para o Index após deletar
         }
     }
 }
+ 
