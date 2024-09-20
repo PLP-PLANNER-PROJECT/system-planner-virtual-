@@ -5,6 +5,6 @@
         NaoIniciada,
         executada,   
         parcialmenteExecutada,  
-        adiada 
+        adiada
     }
 }

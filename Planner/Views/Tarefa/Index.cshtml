@@ -13,9 +13,16 @@
         { Planner.Models.Enum.Categoria.Lazer, "#ff4500" },     // Vermelho
         { Planner.Models.Enum.Categoria.Outros, "#8a2be2" }     // Roxo
     };
+
+    // Definindo cores suaves para cada status
+    var statusCores = new Dictionary<Planner.Models.Enum.StatusTarefa, string>
+    {
+         { Planner.Models.Enum.StatusTarefa.NaoIniciada, "#ffffff" }, // Branco
+        { Planner.Models.Enum.StatusTarefa.executada, "#e0ffe0" },    // Verde muito suave
+        { Planner.Models.Enum.StatusTarefa.parcialmenteExecutada, "#ffffe0" }, // Amarelo muito suave
+        { Planner.Models.Enum.StatusTarefa.adiada, "#ffcccc" }       // Vermelho muito suave
+    };
 }
-
-
 
 <h2>@ViewData["Title"]</h2>
 
@@ -72,6 +79,7 @@
                 </select>
             </div>
         </div>
+
         <!-- Campo para Data Início -->
         <div class="col-md-3">
             <div class="form-group">
@@ -95,9 +103,7 @@
     <thead>
         <tr>
             <th>Título</th>
-            
             <th>Categoria</th>
-            
             <th>Bloco de Duração</th>
             <th>Dia</th>
             <th>Ações</th>
@@ -107,8 +113,12 @@
         @foreach (var tarefa in Model)
         {
             var categoriaCor = categoriaCores.ContainsKey(tarefa.CategoriaAtividade)
-            ? categoriaCores[tarefa.CategoriaAtividade]
-            : "#000000"; // Cor padrão se a categoria não for encontrada
+                ? categoriaCores[tarefa.CategoriaAtividade]
+                : "#000000"; // Cor padrão se a categoria não for encontrada
+
+            var statusCor = statusCores.ContainsKey(tarefa.StatusTarefa)
+                ? statusCores[tarefa.StatusTarefa]
+                : "#ffffff"; // Cor padrão se o status não for encontrado
 
             var rowClass = "";
             if (tarefa.Dia < DateTime.Now.Date && tarefa.StatusTarefa != Planner.Models.Enum.StatusTarefa.executada)
@@ -120,7 +130,7 @@
                 rowClass = "tarefa-executada";
             }
 
-            <tr class="@rowClass">
+            <tr class="@rowClass" style="background-color: @statusCor; color: #333;">
                 <td>@tarefa.Titulo</td>
                 <td style="color: @categoriaCor">@tarefa.CategoriaAtividade</td> <!-- Categoria com cor -->
                 <td>@tarefa.BlocoDuracao</td>
@@ -130,7 +140,7 @@
                     <a href="@Url.Action("Editar", new { id = tarefa.Id })" class="btn btn-warning" style="background-color: #d6e9b8; border-color: #dae8c4; color: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Editar</a>
                     <a href="@Url.Action("Deletar", new { id = tarefa.Id })" class="btn btn-danger" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Deletar</a>
                    
-                    <!-- Dropdown para alterar o status -->
+                   <!-- Dropdown para alterar o status -->
                     <form asp-action="AlterarStatus" method="post" class="d-inline">
                         <input type="hidden" name="id" value="@tarefa.Id" />
                         <select name="novoStatus" class="form-control d-inline w-auto">
@@ -146,15 +156,14 @@
                                 }
                             }
                         </select>
-                        <button type="submit" class="btn btn-secondary">Alterar Status</button>
+                        <button type="submit" class="btn btn-secondary" style="background-color: #6c757d; border-color: #6c757d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Alterar Status</button>
                     </form>
-
-
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 <div>
     <a href="@Url.Action("Adicionar")" class="btn btn-success" style="background-color: #ce5069; border-color: #ce5069; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Adicionar Nova Tarefa</a>
 </div>
