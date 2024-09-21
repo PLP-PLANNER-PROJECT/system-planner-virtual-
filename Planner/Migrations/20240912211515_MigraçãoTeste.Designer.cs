@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Planner.Models;
 
@@ -10,12 +11,35 @@ using Planner.Models;
 namespace Planner.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20240912211515_MigraçãoTeste")]
+    partial class MigraçãoTeste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
+
+            modelBuilder.Entity("Horario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<TimeSpan>("Fim")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("Inicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Turnos")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Horario");
+                });
 
             modelBuilder.Entity("Planner.Models.Atividade", b =>
                 {
@@ -157,20 +181,26 @@ namespace Planner.Migrations
                     b.Property<DateTime>("Dia")
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("Fim")
-                        .HasColumnType("TEXT");
-
-                    b.Property<TimeSpan>("Inicio")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("HorarioId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("StatusTarefa")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Turnos")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasIndex("HorarioId");
 
                     b.HasDiscriminator().HasValue("Tarefa");
+                });
+
+            modelBuilder.Entity("Planner.Models.Tarefa", b =>
+                {
+                    b.HasOne("Horario", "Horario")
+                        .WithMany()
+                        .HasForeignKey("HorarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Horario");
                 });
 #pragma warning restore 612, 618
         }

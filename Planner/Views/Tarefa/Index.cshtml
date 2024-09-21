@@ -70,7 +70,8 @@
             <th>Descrição</th>
             <th>Categoria</th>
             <th>Status</th>
-            <th>Bloco de Duração</th>
+            <th>Inicio</th>
+            <th>Fim</th>
             <th>Dia</th>
             <th>Ações</th>
         </tr>
@@ -93,7 +94,8 @@
                 <td>@tarefa.Descricao</td>
                 <td>@tarefa.CategoriaAtividade</td>
                 <td>@tarefa.StatusTarefa</td>
-                <td>@tarefa.BlocoDuracao</td>
+                <td>@tarefa.Inicio.ToString(@"hh\:mm")</td>
+                <td>@tarefa.Fim.ToString(@"hh\:mm")</td> 
                 <td>@tarefa.Dia.ToShortDateString()</td>
                 <td>
                     <a href="@Url.Action("Detalhes", new { id = tarefa.Id })" class="btn btn-info" style="background-color: #ceb751; border-color: #ceb751; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Detalhes</a>
