@@ -13,37 +13,37 @@ namespace Planner.Service
             _metaRepository = metaRepository;
         }
 
-        public async Task<Meta> GetMetaByIdAsync(int id)
+        public virtual async Task<Meta> GetMetaByIdAsync(int id)
         {
             return await _metaRepository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<Meta>> GetAllMetasAsync()
+        public virtual async Task<IEnumerable<Meta>> GetAllMetasAsync()
         {
             return await _metaRepository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<Meta>> GetMetasByCategoriaAsync(Categoria categoria)
+        public virtual async Task<IEnumerable<Meta>> GetMetasByCategoriaAsync(Categoria categoria)
         {
             return await _metaRepository.GetByCategoriaAsync(categoria);
         }
 
-        public async Task<IEnumerable<Meta>> GetMetasByStatusAsync(StatusMeta status)
+        public virtual async Task<IEnumerable<Meta>> GetMetasByStatusAsync(StatusMeta status)
         {
             return await _metaRepository.GetByStatusAsync(status);
         }
 
-        public async Task AddMetaAsync(Meta meta)
+        public virtual async Task AddMetaAsync(Meta meta)
         {
             await _metaRepository.AddAsync(meta);
         }
 
-        public async Task UpdateMetaAsync(Meta meta)
+        public virtual async Task UpdateMetaAsync(Meta meta)
         {
             await _metaRepository.UpdateAsync(meta);
         }
 
-        public async Task DeleteMetaAsync(int id)
+        public virtual async Task DeleteMetaAsync(int id)
         {
             await _metaRepository.DeleteAsync(id);
         }

@@ -20,7 +20,8 @@ namespace Planner.Controllers
         }
 
         // GET: /Tarefa
-        public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusTarefa? status = null, [FromQuery] int? mes = null, [FromQuery] int? ano = null)
+        public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusTarefa? status = null, [FromQuery] int? mes = null, [FromQuery] int? ano = null, [FromQuery] DateTime? dataInicio = null,
+    [FromQuery] DateTime? dataFim = null)
         {
             IEnumerable<Tarefa> tarefas;
 
@@ -39,6 +40,26 @@ namespace Planner.Controllers
             else
             {
                 tarefas = await _tarefaService.GetAllTarefasAsync();
+            }
+
+            // Se nenhuma data for fornecida, mostra apenas as tarefas de hoje
+            if (!dataInicio.HasValue && !dataFim.HasValue)
+            {
+                var hoje = DateTime.Now.Date;
+                tarefas = tarefas.Where(t => t.Dia.Date == hoje);
+            }
+            else
+            {
+                // Filtra tarefas entre as datas fornecidas
+                if (dataInicio.HasValue)
+                {
+                    tarefas = tarefas.Where(t => t.Dia >= dataInicio.Value);
+                }
+
+                if (dataFim.HasValue)
+                {
+                    tarefas = tarefas.Where(t => t.Dia <= dataFim.Value);
+                }
             }
 
             // Filtra por mês e ano, se fornecidos
@@ -100,6 +121,7 @@ namespace Planner.Controllers
                 {
                     tarefa.Dia = DateTime.Now.Date;
                 }
+                tarefa.StatusTarefa = StatusTarefa.NaoIniciada;
 
                 await _tarefaService.AddTarefaAsync(tarefa);
                 return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após adicionar a tarefa
@@ -190,5 +212,26 @@ namespace Planner.Controllers
             await _tarefaService.DeleteAllTarefasAsync();
             return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após deletar todas as tarefas
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AlterarStatus(int id, StatusTarefa novoStatus)
+        {
+            var tarefa = await _tarefaService.GetTarefaByIdAsync(id);
+
+            if (tarefa != null)
+            {
+                tarefa.StatusTarefa = novoStatus; // Atualiza o status
+                await _tarefaService.UpdateTarefaAsync(tarefa);
+                TempData["MensagemSucesso"] = "Status da tarefa atualizado com sucesso!";
+            }
+            else
+            {
+                TempData["MensagemErro"] = "Tarefa não encontrada.";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

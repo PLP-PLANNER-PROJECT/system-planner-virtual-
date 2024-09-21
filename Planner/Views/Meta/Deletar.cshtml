@@ -6,14 +6,10 @@
 
 <h1>Deletar Meta</h1>
 
-<form asp-action="DeletarConfirmado" method="post">
-    <input type="hidden" asp-for="Id" />
+<form asp-action="Deletar" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
+    <p>Tem certeza que deseja deletar a meta: <strong>@Model.Titulo</strong>?</p>
 
-    <div>
-        <h4>Tem certeza que deseja deletar a meta "@Model.Titulo"?</h4>
-        <div>
-            <button type="submit" class="btn btn-danger">Deletar</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </div>
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
