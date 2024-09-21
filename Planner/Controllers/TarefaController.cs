@@ -198,12 +198,12 @@ namespace Planner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AlterarStatus(int id, StatusTarefa novoStatus)
         {
-            var tarefa = await _tarefaService.GetTarefaByIdAsync(id); // Substitua pelo método correto de busca
+            var tarefa = await _tarefaService.GetTarefaByIdAsync(id);
 
             if (tarefa != null)
             {
-                tarefa.StatusTarefa = novoStatus;
-                await _tarefaService.UpdateTarefaAsync(tarefa); // Substitua pelo método correto de atualização
+                tarefa.StatusTarefa = novoStatus; // Atualiza o status
+                await _tarefaService.UpdateTarefaAsync(tarefa);
                 TempData["MensagemSucesso"] = "Status da tarefa atualizado com sucesso!";
             }
             else
@@ -213,5 +213,6 @@ namespace Planner.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
