@@ -32,9 +32,6 @@ namespace Planner.Repository
 
             var porcentagemTarefasExecutadas = totalTarefas > 0 ? (double)tarefasExecutadas / totalTarefas * 100 : 0;
 
-            // Identificar semanas mais produtivas
-            var semanasMaisProdutivas = "Implementar lógica para identificar semanas mais produtivas"; // Implementar conforme a lógica desejada
-
             // Identificar turnos mais produtivos
             var turnosMaisProdutivos = "Implementar lógica para identificar turnos mais produtivos"; // Implementar conforme a lógica desejada
 
@@ -66,7 +63,7 @@ namespace Planner.Repository
                 QuantidadeTarefasExecutadas = tarefasExecutadas,
                 PorcentagemTarefasExecutadas = porcentagemTarefasExecutadas,
                 QuantidadeTarefasNaoExecutadas = totalTarefas - tarefasExecutadas,
-                //SemanasMaisProdutivas = semanasMaisProdutivas,
+                
                 //TurnosMaisProdutivos = turnosMaisProdutivos,
                 CategoriaTarefaMaisRealizada = categoriasMaisRealizadas.FirstOrDefault()?.Categoria.ToString() ?? "Nenhuma",
                 CategoriaMetaMaisRealizada = categoriasMaisRealizadasMeta.FirstOrDefault()?.Categoria.ToString() ?? "Nenhuma"
@@ -92,8 +89,7 @@ namespace Planner.Repository
 
             var porcentagemTarefasExecutadas = totalTarefas > 0 ? (double)tarefasExecutadas / totalTarefas * 100 : 0;
 
-            // Identificar meses mais produtivos
-            var mesesMaisProdutivos = "Implementar lógica para identificar meses mais produtivos"; // Implementar conforme a lógica desejada
+            
 
             // Identificar categorias mais realizadas
             var categoriasMaisRealizadas = await _context.Tarefas
@@ -122,7 +118,6 @@ namespace Planner.Repository
                 QuantidadeTarefasExecutadas = tarefasExecutadas,
                 PorcentagemTarefasExecutadas = porcentagemTarefasExecutadas,
                 QuantidadeTarefasNaoExecutadas = totalTarefas - tarefasExecutadas,
-                //SemanasMaisProdutivas = "Implementar lógica para identificar semanas mais produtivas", // Implementar conforme a lógica desejada
                 //TurnosMaisProdutivos = "Implementar lógica para identificar turnos mais produtivos", // Implementar conforme a lógica desejada
                 CategoriaTarefaMaisRealizada = categoriasMaisRealizadas.FirstOrDefault()?.Categoria.ToString() ?? "Nenhuma",
                 CategoriaMetaMaisRealizada = categoriasMaisRealizadasMeta.FirstOrDefault()?.Categoria.ToString() ?? "Nenhuma"
