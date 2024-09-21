@@ -27,7 +27,10 @@
 
     <div class="form-group">
         <label asp-for="RecorrenteSemanal" class="control-label"></label>
-        <input asp-for="RecorrenteSemanal" class="form-control" type="checkbox" />
+        <select asp-for="RecorrenteSemanal" class="form-control">
+            <option value="false">Não</option>
+            <option value="true">Sim</option>
+        </select>
         <span asp-validation-for="RecorrenteSemanal" class="text-danger"></span>
     </div>
 

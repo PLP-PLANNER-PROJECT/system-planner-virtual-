@@ -18,7 +18,7 @@
         <dd class="col-sm-10">@Model.TipoLembrete</dd>
 
         <dt class="col-sm-2">Recorrente Semanal</dt>
-        <dd class="col-sm-10">@Model.RecorrenteSemanal</dd>
+        <dd class="col-sm-10">@(@Model.RecorrenteSemanal ? "Sim" : "Não")</dd>
 
         <dt class="col-sm-2">Data e Hora</dt>
         <dd class="col-sm-10">@Model.DataHora</dd>
