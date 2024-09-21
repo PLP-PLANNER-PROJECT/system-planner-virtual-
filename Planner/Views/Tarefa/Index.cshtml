@@ -104,7 +104,9 @@
         <tr>
             <th>Título</th>
             <th>Categoria</th>
-            <th>Bloco de Duração</th>
+            <th>Status</th>
+            <th>Inicio</th>
+            <th>Fim</th>
             <th>Dia</th>
             <th>Ações</th>
         </tr>
@@ -132,6 +134,11 @@
 
             <tr class="@rowClass" style="background-color: @statusCor; color: #333;">
                 <td>@tarefa.Titulo</td>
+                <td>@tarefa.Descricao</td>
+                <td>@tarefa.CategoriaAtividade</td>
+                <td>@tarefa.StatusTarefa</td>
+                <td>@tarefa.Inicio.ToString(@"hh\:mm")</td>
+                <td>@tarefa.Fim.ToString(@"hh\:mm")</td> 
                 <td style="color: @categoriaCor">@tarefa.CategoriaAtividade</td> <!-- Categoria com cor -->
                 <td>@tarefa.BlocoDuracao</td>
                 <td>@tarefa.Dia.ToShortDateString()</td>

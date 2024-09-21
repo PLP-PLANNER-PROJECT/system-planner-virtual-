@@ -105,6 +105,18 @@ namespace Planner.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                // Verificar os horários
+                try
+                {
+                    tarefa.Horario(tarefa.Inicio, tarefa.Fim);
+                }
+                catch (ArgumentException ex)
+                {
+                    ModelState.AddModelError("Horario", ex.Message);
+                    return View(tarefa);
+                }
+                
                 if (tarefa.Dia == default(DateTime))
                 {
                     tarefa.Dia = DateTime.Now.Date;
@@ -142,9 +154,10 @@ namespace Planner.Controllers
             }
 
             if (ModelState.IsValid)
-            {
+            {   
                 try
                 {
+                    tarefaAtualizada.Horario(tarefaAtualizada.Inicio, tarefaAtualizada.Fim); // Verifica os horários
                     await _tarefaService.UpdateTarefaAsync(tarefaAtualizada);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -156,6 +169,12 @@ namespace Planner.Controllers
                     }
                     throw;
                 }
+                catch (ArgumentException ex) // Trata exceção de horário inválido
+                {
+                    ModelState.AddModelError("Horario", ex.Message);
+                    return View(tarefaAtualizada);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
 

@@ -46,15 +46,15 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="BlocoDuracao" class="control-label"></label>
-        <select asp-for="BlocoDuracao" class="form-control">
-            <option value="">Selecione</option>
-            @foreach (var bloco in Enum.GetValues(typeof(Planner.Models.Enum.BlocoDuracao)).Cast<Planner.Models.Enum.BlocoDuracao>())
-            {
-                <option value="@bloco">@bloco</option>
-            }
-        </select>
-        <span asp-validation-for="BlocoDuracao" class="text-danger"></span>
+        <label asp-for="Inicio" class="control-label">Horário de início</label>
+        <input asp-for="Inicio" class="form-control" type="time" />
+        <span asp-validation-for="Inicio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Fim" class="control-label">Horário de encerramento</label>
+        <input asp-for="Fim" class="form-control" type="time" />
+        <span asp-validation-for="Fim" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -62,6 +62,9 @@
         <input asp-for="Dia" class="form-control" type="date" />
         <span asp-validation-for="Dia" class="text-danger"></span>
     </div>
+
+    @* apresentar mensagem de erro *@
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
 
