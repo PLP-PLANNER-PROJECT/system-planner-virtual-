@@ -13,47 +13,48 @@ namespace Planner.Service
             _tarefaRepository = tarefaRepository;
         }
 
-        public async Task<Tarefa> GetTarefaByIdAsync(int id)
+        //virtual: permite que o método seja substituído por uma classe derivada, para testes
+        public virtual async Task<Tarefa> GetTarefaByIdAsync(int id)
         {
             return await _tarefaRepository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<Tarefa>> GetAllTarefasAsync()
+        public virtual async Task<IEnumerable<Tarefa>> GetAllTarefasAsync()
         {
             return await _tarefaRepository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<Tarefa>> GetTarefasByCategoriaAsync(Categoria categoria)
+        public virtual async Task<IEnumerable<Tarefa>> GetTarefasByCategoriaAsync(Categoria categoria)
         {
             return await _tarefaRepository.GetByCategoriaAsync(categoria);
         }
 
-        public async Task<IEnumerable<Tarefa>> GetTarefasByStatusAsync(StatusTarefa status)
+        public virtual async Task<IEnumerable<Tarefa>> GetTarefasByStatusAsync(StatusTarefa status)
         {
             return await _tarefaRepository.GetByStatusAsync(status);
         }
 
-        public async Task<IEnumerable<Tarefa>> GetTarefasByCategoriaAndStatusAsync( StatusTarefa status, Categoria categoria)
+        public virtual async Task<IEnumerable<Tarefa>> GetTarefasByCategoriaAndStatusAsync( StatusTarefa status, Categoria categoria)
         {
             return await _tarefaRepository.GetTarefasByCategoriaAndStatusAsync(status, categoria);
         }
 
-        public async Task AddTarefaAsync(Tarefa tarefa)
+        public virtual async Task AddTarefaAsync(Tarefa tarefa)
         {
             await _tarefaRepository.AddAsync(tarefa);
         }
 
-        public async Task UpdateTarefaAsync(Tarefa tarefa)
+        public virtual async Task UpdateTarefaAsync(Tarefa tarefa)
         {
             await _tarefaRepository.UpdateAsync(tarefa);
         }
 
-        public async Task DeleteTarefaAsync(int id)
+        public virtual async Task DeleteTarefaAsync(int id)
         {
             await _tarefaRepository.DeleteAsync(id);
         }
 
-        public async Task DeleteAllTarefasAsync()
+        public virtual async Task DeleteAllTarefasAsync()
         {
             await _tarefaRepository.DeleteAllAsync();
         }
