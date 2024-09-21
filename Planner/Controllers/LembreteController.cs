@@ -18,7 +18,7 @@ namespace Planner.Controllers
         public async Task<IActionResult> Index()
         {
             var lembretes = await _lembreteService.GetLembretesAsync();
-            return View(lembretes); // Renderiza a view 'Index' com a lista de lembretes
+            return View(lembretes);
         }
 
         // GET: /Lembrete/Detalhes/5
@@ -31,13 +31,13 @@ namespace Planner.Controllers
                 return NotFound();
             }
 
-            return View(lembrete); // Renderiza a view 'Detalhes' com o lembrete específico
+            return View(lembrete);
         }
 
         // GET: /Lembrete/Adicionar
         public IActionResult Adicionar()
         {
-            return View(); // Renderiza a view 'Adicionar'
+            return View();
         }
 
         // POST: /Lembrete/Adicionar
@@ -48,10 +48,10 @@ namespace Planner.Controllers
             if (ModelState.IsValid)
             {
                 await _lembreteService.AdicionarLembreteAsync(lembrete);
-                return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após adicionar o lembrete
+                return RedirectToAction(nameof(Index));
             }
 
-            return View(lembrete); // Se o modelo não for válido, retorna à view 'Adicionar' com os dados preenchidos
+            return View(lembrete);
         }
 
         // GET: /Lembrete/Editar/5
@@ -64,7 +64,7 @@ namespace Planner.Controllers
                 return NotFound();
             }
 
-            return View(lembrete); // Renderiza a view 'Editar' com o lembrete específico
+            return View(lembrete);
         }
 
         // POST: /Lembrete/Editar/5
@@ -80,10 +80,10 @@ namespace Planner.Controllers
             if (ModelState.IsValid)
             {
                 await _lembreteService.AtualizarLembreteAsync(lembreteAtualizado);
-                return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após atualizar o lembrete
+                return RedirectToAction(nameof(Index));
             }
 
-            return View(lembreteAtualizado); // Se o modelo não for válido, retorna à view 'Editar' com os dados preenchidos
+            return View(lembreteAtualizado);
         }
 
         // GET: /Lembrete/Deletar/5
@@ -96,7 +96,7 @@ namespace Planner.Controllers
                 return NotFound();
             }
 
-            return View(lembrete); // Renderiza a view 'Deletar' com o lembrete específico
+            return View(lembrete);
         }
 
         // POST: /Lembrete/Deletar/5
@@ -105,14 +105,14 @@ namespace Planner.Controllers
         public async Task<IActionResult> DeletarConfirmado(int id)
         {
             await _lembreteService.DeletarLembreteAsync(id);
-            return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após deletar o lembrete
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: /Lembrete/Processar
         public async Task<IActionResult> Processar()
         {
             await _lembreteService.ProcessarLembretes();
-            return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após processar os lembretes
+            return RedirectToAction(nameof(Index));
         }
     }
 }

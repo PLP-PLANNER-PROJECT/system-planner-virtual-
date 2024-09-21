@@ -23,19 +23,21 @@ namespace Planner.Repository
             return await _contexto.Lembretes.FindAsync(id);
         }
 
+        //para notificação de lembretes perto de se expirar hoje ou amanha.
         public async Task<IEnumerable<Lembrete>> GetLembretesParaHojeAsync()
         {
             var hoje = DateTime.Today;
+            var amanha = hoje.AddDays(1);
             return await _contexto.Lembretes
-                .Where(l => l.DataHora.Date == hoje)
+                .Where(l => l.DataHora.Date == hoje || l.DataHora.Date == amanha)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Lembrete>> GetLembretesParaAmanhaAsync()
         {
-            var amanha = DateTime.Today.AddDays(1);
+            var hoje = DateTime.Today;
             return await _contexto.Lembretes
-                .Where(l => l.DataHora.Date == amanha)
+                .Where(l => l.DataHora.Date == hoje)
                 .ToListAsync();
         }
 
