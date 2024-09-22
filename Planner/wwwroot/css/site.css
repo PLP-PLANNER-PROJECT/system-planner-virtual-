@@ -53,3 +53,102 @@ body {
   color: black;
 }
 
+
+/* Estilos específicos para a view de seleção de relatório */
+.report-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+    margin-top: 1.5em;
+}
+
+    .report-selection .btn-relatorio {
+        background-color: #ce854d;
+        border-color: #ce854d;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px 20px;
+        transition: background-color 0.3s ease, transform 0.2s;
+        text-transform: uppercase;
+    }
+
+        .report-selection .btn-relatorio:hover {
+            background-color: #b86f3d;
+            transform: translateY(-2px);
+        }
+
+        .report-selection .btn-relatorio:focus, .report-selection .btn-relatorio:active:focus {
+            box-shadow: 0 0 0 0.2rem rgba(206, 133, 77, 0.5);
+        }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .report-selection {
+        flex-direction: column;
+    }
+}
+
+
+.btn:hover {
+    background-color: #b76f3c;
+    transform: scale(1.05);
+}
+
+/* Estilos para o título e o contêiner do relatório */
+.relatorio-titulo {
+    font-size: 1.8em;
+    color: #4a4a4a;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.relatorio-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Estilos para a tabela do relatório */
+.table-relatorio {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.table-relatorio th {
+    background-color: #ce854d;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+.table-relatorio td {
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+}
+
+.table-relatorio tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilo do botão Voltar */
+.relatorio-voltar {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-relatorio-voltar {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-relatorio-voltar:hover {
+    background-color: #5a6268;
+}

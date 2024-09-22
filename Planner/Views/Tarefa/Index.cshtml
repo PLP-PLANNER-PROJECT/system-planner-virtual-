@@ -139,13 +139,7 @@
                 <td style="color: @categoriaCor">@tarefa.CategoriaAtividade</td> <!-- Categoria com cor -->
                 <td>@tarefa.StatusTarefa</td>
                 <td>@tarefa.Inicio.ToString(@"hh\:mm")</td>
-                <td>@tarefa.Fim.ToString(@"hh\:mm")</td> 
-<<<<<<< HEAD
-                
-=======
-                <td style="color: @categoriaCor">@tarefa.CategoriaAtividade</td> <!-- Categoria com cor -->
->>>>>>> 54acb3cb312d693544d30f2cb08852aec309e1c9
-                
+                <td>@tarefa.Fim.ToString(@"hh\:mm")</td>          
                 <td>@tarefa.Dia.ToShortDateString()</td>
                 <td>
                     <a href="@Url.Action("Detalhes", new { id = tarefa.Id })" class="btn btn-info" style="background-color: #ceb751; border-color: #ceb751; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Detalhes</a>

@@ -2,10 +2,6 @@
 using Planner.Models.Enum;
 using Planner.Models;
 using Planner.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Planner.Controllers
@@ -101,10 +97,12 @@ namespace Planner.Controllers
         // POST: /Tarefa/Adicionar
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adicionar(Tarefa tarefa)
+        public async Task<IActionResult> Adicionar(Tarefa tarefa, BlocoDuracao blocoDuracao)
         {
             if (ModelState.IsValid)
             {
+
+                tarefa.Fim = CalcularFim(tarefa.Inicio, blocoDuracao);
 
                 // Verificar os horários
                 try
@@ -146,7 +144,7 @@ namespace Planner.Controllers
         // POST: /Tarefa/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(int id, Tarefa tarefaAtualizada)
+        public async Task<IActionResult> Editar(int id, Tarefa tarefaAtualizada, BlocoDuracao blocoDuracao)
         {
             if (id != tarefaAtualizada.Id)
             {
@@ -154,7 +152,8 @@ namespace Planner.Controllers
             }
 
             if (ModelState.IsValid)
-            {   
+            {
+                tarefaAtualizada.Fim = CalcularFim(tarefaAtualizada.Inicio, blocoDuracao);
                 try
                 {
                     tarefaAtualizada.Horario(tarefaAtualizada.Inicio, tarefaAtualizada.Fim); // Verifica os horários
@@ -232,6 +231,21 @@ namespace Planner.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        private TimeSpan CalcularFim(TimeSpan inicio, BlocoDuracao blocoDuracao)
+        {
+            return blocoDuracao switch
+            {
+                BlocoDuracao.MeiaHora => inicio.Add(TimeSpan.FromMinutes(30)),
+                BlocoDuracao.UmaHora => inicio.Add(TimeSpan.FromHours(1)),
+                BlocoDuracao.Manha => new TimeSpan(12, 0, 0),
+                BlocoDuracao.Tarde => new TimeSpan(18, 0, 0),
+                BlocoDuracao.Noite => new TimeSpan(23, 59, 59),
+                BlocoDuracao.DiaTodo => new TimeSpan(23, 59, 59),
+                _ => inicio
+            };
+        }
+
 
     }
 }
