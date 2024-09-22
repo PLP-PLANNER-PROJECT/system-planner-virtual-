@@ -6,13 +6,14 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Descrição</th>
-            <th>Valor</th>
-        </tr>
-    </thead>
+<div class="relatorio-container">
+    <table class="table table-relatorio">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
     <tbody>
         <tr>
             <td>Quantidade de Metas Criadas</td>
@@ -55,17 +56,12 @@
         </tr>
 
         <tr>
-            <td>Semanas Mais Produtivas</td>
+            <td>Semana Mais Produtiva</td>
             <td>@Model.SemanasMaisProdutivas</td>
         </tr>
 
         <tr>
-            <td>Meses Mais Produtivos</td>
-            <td>@Model.MesesMaisProdutivos</td>
-        </tr>
-
-        <tr>
-            <td>Turnos Mais Produtivos</td>
+            <td>Turno Mais Produtivo</td>
             <td>@Model.TurnosMaisProdutivos</td>
         </tr>
 
@@ -79,7 +75,9 @@
             <td>@Model.CategoriaMetaMaisRealizada</td>
         </tr>
     </tbody>
-</table>
+    </table>
 
-<a href="@Url.Action("Index", "Relatorio")" class="btn btn-secondary">Voltar</a>
-
+    <div class="relatorio-voltar">
+        <a href="@Url.Action("Index", "Relatorio")" class="btn btn-secondary btn-relatorio-voltar">Voltar</a>
+    </div>
+</div>
