@@ -1,52 +1,119 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Precisa implementar toda interface para ficar parecido como um planner</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
-    @if (ViewBag.LembretesHoje != null)
-    {
-        var lembretesHoje = (List<Planner.Models.Lembrete>)ViewBag.LembretesHoje;
-
-        if (lembretesHoje.Any())
-        {
-            foreach (var lembrete in lembretesHoje)
-            {
-                <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">
-                            <strong>Atenção!</strong> Seu lembrete "<strong>@lembrete.Titulo</strong>" está próximo de acontecer <strong>@lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</strong>.
-                        </div>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            <div class="toast align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        Você não tem lembretes próximos.
-                    </div>
-                    <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Simples</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="calendar-container">
+        <div id="calendar">
+            <div id="month">
+                <span id="prev">&#10094;</span>
+                <span id="month-name"></span>
+                <span id="next">&#10095;</span>
             </div>
-        }
-    }
-    
-</div>
+            <div id="days-of-week">
+                <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+            </div>
+            <div id="days"></div>
+        </div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('.toast').toast(); // Não define o delay
-        $('.toast').toast('show'); // Exibe o toast
-    });
-</script>
+    <div class="planner-container">
+        <h1>Planner Semanal</h1>
+        <div class="planner">
+            <div class="day">
+                <h2>Segunda</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="day">
+                <h2>Terça</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="day">
+                <h2>Quarta</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="day">
+                <h2>Quinta</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="day">
+                <h2>Sexta</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="day">
+                <h2>Sábado</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="day">
+                <h2>Domingo</h2>
+                <ul>
+                    <li>Atividade 1</li>
+                    <li>Atividade 2</li>
+                    <li>Atividade 3</li>
+                </ul>
+            </div>
+            <div class="anot">
+                <h2>Anotações</h2>
+                <ul>
+                    <li>Linha 1</li>
+                    <li>Linha 2</li>
+                    <li>Linha 3</li>
+                </ul>
+            </div>
+            <div class="liga">
+                <h2>Ligações</h2>
+                <ul>
+                    <li>Numero 1</li>
+                    <li>Numero 2</li>
+                    <li>Numero 3</li>
+                </ul>
+            </div>
+            <div class="reune">
+                <h2>Reuniões</h2>
+                <ul>
+                    <li>Linha 1</li>
+                    <li>Linha 2</li>
+                    <li>Linha 3</li>
+                </ul>
+            </div>
+            <div class="compras">
+                <h2>Compras</h2>
+                <ul>
+                    <li>Linha 1</li>
+                    <li>Linha 2</li>
+                    <li>Linha 3</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    <script src="~/js/script.js"></script>
+</body>
+</html>
