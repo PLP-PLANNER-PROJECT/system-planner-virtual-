@@ -123,7 +123,7 @@
 
                                 <!-- Dropdown minimalista para seleção do status -->
                                 <div class="dropdown d-inline">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownStatus_@tarefa.Id" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px;">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownStatus_@tarefa.Id" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 1px 2px; font-size: 0.75rem;">
                                         <!-- Ícone de seta para baixo -->
                                         <i class="bi bi-chevron-down"></i>
                                     </button>
@@ -134,7 +134,7 @@
                                                 <form asp-action="AlterarStatus" method="post" class="d-inline">
                                                     <input type="hidden" name="id" value="@tarefa.Id" />
                                                     <input type="hidden" name="novoStatus" value="@status" />
-                                                    <button type="submit" class="dropdown-item">
+                                                    <button type="submit" class="dropdown-item" style="font-size: 0.85rem;">
                                                         @status.ToString()
                                                     </button>
                                                 </form>
