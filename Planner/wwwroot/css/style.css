@@ -365,3 +365,51 @@ ul li a {
 .planner-container {
     margin-right: 180px; /* Espaço para a sidebar */
 }
+
+.riscado {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+
+/* Centralizar o título do Planner Semanal */
+.planner-title {
+    text-align: center;
+    font-family: 'Alex Brush', cursive;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilização para os botões de semana anterior e próxima */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+    .navigation-buttons a {
+        background-color: #f1d3b2;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-family: 'Klee One', cursive;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        color: black; /* Cor do texto */
+    }
+
+        .navigation-buttons a:hover {
+            background-color: #e5b48a;
+        }
+
+/* Ajustar o posicionamento do título e dos botões no topo */
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
