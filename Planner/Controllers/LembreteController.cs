@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Planner.Models;
+using Planner.Models.Enum;
 using Planner.Service;
 using System.Threading.Tasks;
 
@@ -15,11 +16,37 @@ namespace Planner.Controllers
         }
 
         // GET: /Lembrete
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index([FromQuery] TipoLembrete? tipo = null, [FromQuery] bool? recorrente = null, [FromQuery] int? mes = null, [FromQuery] int? ano = null)
         {
             var lembretes = await _lembreteService.GetLembretesAsync();
+
+            // Filtro por tipo
+            if (tipo.HasValue)
+            {
+                lembretes = lembretes.Where(l => l.TipoLembrete == tipo.Value);
+            }
+
+            // Filtro por recorrência
+            if (recorrente.HasValue)
+            {
+                lembretes = lembretes.Where(l => l.RecorrenteSemanal == recorrente.Value);
+            }
+
+            // Filtro por mês e ano
+            if (mes.HasValue)
+            {
+                lembretes = lembretes.Where(l => l.DataHora.Month == mes.Value);
+            }
+
+            if (ano.HasValue)
+            {
+                lembretes = lembretes.Where(l => l.DataHora.Year == ano.Value);
+            }
+
             return View(lembretes);
         }
+
 
         // GET: /Lembrete/Detalhes/5
         public async Task<IActionResult> Detalhe(int id)

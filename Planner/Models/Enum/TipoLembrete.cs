@@ -4,6 +4,7 @@
     {
         Reuniao,
         Compras,
-        Ligacoes_importantes
+        Ligacoes_importantes,
+        Anotacao
     }
 }

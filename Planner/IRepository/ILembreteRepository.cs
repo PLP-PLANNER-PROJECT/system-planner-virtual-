@@ -7,6 +7,7 @@ namespace Planner.IRepository
         Task<IEnumerable<Lembrete>> GetLembretesAsync();
         Task<Lembrete?> GetLembreteByIdAsync(int id);
         Task<IEnumerable<Lembrete>> GetLembretesParaHojeAsync();
+        Task<IEnumerable<Lembrete>> GetLembretesPorPeriodoAsync(DateTime dataInicio, DateTime dataFim);
         Task<IEnumerable<Lembrete>> GetLembretesParaAmanhaAsync();
         Task<IEnumerable<Lembrete>> GetLembretesParaEstaSemanaAsync();
         Task<IEnumerable<Lembrete>> GetLembretesParaEsteMesAsync();

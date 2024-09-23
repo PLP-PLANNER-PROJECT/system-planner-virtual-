@@ -80,5 +80,12 @@ namespace Planner.Repository
                 await _contexto.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Lembrete>> GetLembretesPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
+        {
+            return await _contexto.Lembretes
+                .Where(l => l.DataHora.Date >= dataInicio && l.DataHora.Date <= dataFim)
+                .ToListAsync();
+        }
     }
 }

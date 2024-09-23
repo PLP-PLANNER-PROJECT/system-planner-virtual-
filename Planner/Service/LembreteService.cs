@@ -49,6 +49,12 @@ namespace Planner.Service
             }
         }
 
+        //GetLembretesPorPeriodoAsync
+        public async Task<IEnumerable<Lembrete>> GetLembretesPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
+        {
+            return await _lembreteRepository.GetLembretesPorPeriodoAsync(dataInicio, dataFim);
+        }
+
         // Método de notificação de lembrete
         public void NotificarUsuario(string titulo)
         {

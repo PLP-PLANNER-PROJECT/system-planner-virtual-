@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<Planner.Models.Tarefa>
 
+
 @{
     var dataBase = (DateTime)ViewBag.DataBase;
     var dataAnterior = dataBase.AddDays(-7);
     var dataProxima = dataBase.AddDays(7);
     var diasSemana = new[] { "domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado" };
-
+    var lembretesSemana = ViewBag.lembretesSemana as List<Planner.Models.Lembrete> ?? new List<Planner.Models.Lembrete>();
 }
 
 <!DOCTYPE html>
@@ -160,55 +161,74 @@
             <div class="anot">
                 <h2>Anotações</h2>
                 <ul>
-                    <li>Linha 1</li>
-                    <li>Linha 2</li>
-                    <li>Linha 3</li>
+                    @foreach (var lembrete in lembretesSemana.Where(l => l.TipoLembrete == Planner.Models.Enum.TipoLembrete.Anotacao))
+                    {
+                        <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
+                    }
                 </ul>
             </div>
+
             <div class="liga">
                 <h2>Ligações</h2>
                 <ul>
-                    <li>Numero 1</li>
-                    <li>Numero 2</li>
-                    <li>Numero 3</li>
+                    @foreach (var lembrete in lembretesSemana.Where(l => l.TipoLembrete == Planner.Models.Enum.TipoLembrete.Ligacoes_importantes))
+                    {
+                        <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
+                    }
                 </ul>
             </div>
+
             <div class="reune">
                 <h2>Reuniões</h2>
                 <ul>
-                    <li>Linha 1</li>
-                    <li>Linha 2</li>
-                    <li>Linha 3</li>
+                    @foreach (var lembrete in lembretesSemana.Where(l => l.TipoLembrete == Planner.Models.Enum.TipoLembrete.Reuniao))
+                    {
+                        <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
+                    }
                 </ul>
             </div>
+
             <div class="compras">
                 <h2>Compras</h2>
                 <ul>
-                    <li>Linha 1</li>
-                    <li>Linha 2</li>
-                    <li>Linha 3</li>
+                    @foreach (var lembrete in lembretesSemana.Where(l => l.TipoLembrete == Planner.Models.Enum.TipoLembrete.Compras))
+                    {
+                        <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
+                    }
                 </ul>
             </div>
         </div>
+
+
     </div>
         <div class="meta">
             <h2>Metas Futuras</h2>
             <ul>
                 @if (ViewBag.MetasFuturas is List<Planner.Models.Meta> metasFuturas && metasFuturas.Any())
                 {
-                    foreach (var meta in metasFuturas)
-                    {
-                        string cor = "#000000"; // Cor padrão
-                        if (categoriaCores.TryGetValue(meta.CategoriaAtividade, out var corEncontrada))
-                        {
-                            cor = corEncontrada;
-                        }
+                // Filtrar apenas metas com status "Não Iniciada"
+                    var metasNaoIniciadas = metasFuturas.Where(meta => meta.StatusMeta == Planner.Models.Enum.StatusMeta.NãoIniciada).ToList();
 
-                        <li style="color: @cor;">
-                            <a href="@Url.Action("Detalhes", "Meta", new { id = meta.Id })" style="color: inherit; text-decoration: none;">
-                                <strong>@meta.Titulo</strong> - Prazo: @meta.Prazo.ToString("dd/MM/yyyy") - @meta.StatusMeta.ToString()
-                            </a>
-                        </li>
+                    if (metasNaoIniciadas.Any())
+                    {
+                    foreach (var meta in metasNaoIniciadas)
+                        {
+                            string cor = "#000000"; // Cor padrão
+                            if (categoriaCores.TryGetValue(meta.CategoriaAtividade, out var corEncontrada))
+                            {
+                                cor = corEncontrada;
+                            }
+
+                            <li style="color: @cor;">
+                                <a href="@Url.Action("Detalhes", "Meta", new { id = meta.Id })" style="color: inherit; text-decoration: none;">
+                                    <strong>@meta.Titulo</strong> - Prazo: @meta.Prazo.ToString("dd/MM/yyyy")
+                                </a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li>Nenhuma meta futura.</li>
                     }
                 }
                 else
