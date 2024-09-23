@@ -6,6 +6,61 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<form method="get" class="mt-3">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <select id="tipo" name="tipo" class="form-control">
+                    <option value="">Todos</option>
+                    @foreach (var tipo in Enum.GetValues(typeof(Planner.Models.Enum.TipoLembrete)).Cast<Planner.Models.Enum.TipoLembrete>())
+                    {
+                        <option value="@tipo">@tipo</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="recorrente">Recorrente Semanal</label>
+                <select id="recorrente" name="recorrente" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="mes">Mês</label>
+                <select id="mes" name="mes" class="form-control">
+                    <option value="">Todos</option>
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="ano">Ano</label>
+                <select id="ano" name="ano" class="form-control">
+                    <option value="">Todos</option>
+                    @for (int i = DateTime.Now.Year - 10; i <= DateTime.Now.Year + 10; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 0.6em; background-color: #ce854d; border-color: #ce854d; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Filtrar</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>

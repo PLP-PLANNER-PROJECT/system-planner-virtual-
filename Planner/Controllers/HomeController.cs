@@ -42,6 +42,10 @@ namespace Planner.Controllers
             var lembretesHoje = await _lembreteService.GetLembretesParaHojeAsync();
             ViewBag.lembretesHoje = lembretesHoje;
 
+            //lembretes para a semana
+            var lembretesSemana = await _lembreteService.GetLembretesPorPeriodoAsync(primeiroDiaDaSemana, ultimoDiaDaSemana);
+            ViewBag.lembretesSemana = lembretesSemana;
+
             var metas = await _metaService.GetAllMetasAsync();
             ViewBag.MetasFuturas = metas.Where(m => m.Prazo.Date >= DateTime.Today).OrderBy(m => m.Prazo).ToList();
 
