@@ -6,7 +6,7 @@ O Planner Virtual System é um Sistema para gerenciar tarefas, compromissos e at
 - **Agendamento de Compromissos:** Adicione compromissos e receba lembretes para não perder nenhum evento.
 - **Lembretes Personalizados:** Defina lembretes para atividades próximas, com alertas automáticos.
 - **Interface Amigável:** Interface clean e fácil de usar com toasts de notificações para alertas e lembretes.
-- 
+
 ## Tecnologias Utilizadas
 
 - **Linguagem:** C#
