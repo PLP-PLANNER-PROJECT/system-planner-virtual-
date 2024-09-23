@@ -314,3 +314,38 @@ ul li a {
     color: inherit; /* Herda a cor do elemento pai */
     text-decoration: none; /* Remove o sublinhado */
 }
+
+.meta {
+    font-family: 'Klee One', regular;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #FFEE75;
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.meta h2 {
+    font-family: 'Alex Brush', regular;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.meta ul {
+    list-style-type: none;
+    padding: 1px;
+}
+
+.meta ul li {
+    background-color: #fff;
+    padding: 6px;
+    border-radius: 3px;
+    border-bottom: 1px solid #000;
+}
+
+.meta ul li:hover {
+    background-color: #fff;
+}
