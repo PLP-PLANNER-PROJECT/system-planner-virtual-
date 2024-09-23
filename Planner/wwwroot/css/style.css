@@ -57,7 +57,7 @@ body {
     grid-template-columns: repeat(7, 1fr);  /*Cada coluna representa um dia da semana */
     text-align: center;
     margin-top: 10px;
-    gap: 5px; /* Espaçamento entre os dias */
+    gap: 5px; /* Espaçamento entre os dias, não mude */
 }
 
     #days div {
@@ -136,6 +136,22 @@ h1 {
             .day ul li:hover {
                 background-color: #dfe6e9;
             }
+
+button {
+    /*botao de adicionar tarefa*/
+    margin-top: 10px;
+    width: 100%;
+    padding: 5px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #45a049;
+    }
 
 .anot {
     font-family: 'Klee One', regular;

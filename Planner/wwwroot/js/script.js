@@ -40,5 +40,9 @@ next.addEventListener('click', () => {
     renderCalendar(currentDate);
 });
 
-// Inicializar o calendário
+
 renderCalendar(currentDate);
+
+function redirectToTaskPage() {
+    window.location.href = "/Tarefa/Adicionar"; 
+}

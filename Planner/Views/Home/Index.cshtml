@@ -6,7 +6,7 @@
     <title>Planner Simples</title>
     <link rel="stylesheet" href="~/css/style.css">
 
-        <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+       <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
             @if (ViewBag.LembretesHoje != null)
             {
                 var lembretesHoje = (List<Planner.Models.Lembrete>)ViewBag.LembretesHoje;
@@ -49,7 +49,6 @@
             $('.toast').toast('show');
         });
     </script>
-
 </head>
 <body>
     <div class="calendar-container">
@@ -69,61 +68,70 @@
     <div class="planner-container">
         <h1>Planner Semanal</h1>
         <div class="planner">
+            
             <div class="day">
+                <!-- ainda não aumenta o tamanho da tabela automaticamente-->
                 <h2>Segunda</h2>
-                <ul>
+                <ul id="segunda-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="day">
                 <h2>Terça</h2>
-                <ul>
+                <ul id="terca-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="day">
                 <h2>Quarta</h2>
-                <ul>
+                <ul id="quarta-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="day">
                 <h2>Quinta</h2>
-                <ul>
+                <ul id="quinta-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="day">
                 <h2>Sexta</h2>
-                <ul>
+                <ul id="sexta-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="day">
                 <h2>Sábado</h2>
-                <ul>
+                <ul id="sabado-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="day">
                 <h2>Domingo</h2>
-                <ul>
+                <ul id="domingo-tarefas">
                     <li>Atividade 1</li>
                     <li>Atividade 2</li>
                     <li>Atividade 3</li>
                 </ul>
+                
             </div>
             <div class="anot">
                 <h2>Anotações</h2>
@@ -158,6 +166,10 @@
                 </ul>
             </div>
         </div>
+      </div>
+
+      <div>
+        <button onclick="redirectToTaskPage()">Adicionar Atividade</button>
       </div>
     <script src="~/js/script.js"></script>
 </body>
