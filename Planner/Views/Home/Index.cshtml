@@ -28,18 +28,22 @@
             {
                 foreach (var lembrete in lembretesHoje)
                 {
+
                     <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="d-flex">
                             <div class="toast-body">
-                                <strong>Atenção!</strong> Seu lembrete "<strong>@lembrete.Titulo</strong>" está próximo de acontecer <strong>@lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</strong>.
+                                <!-- Ícone de sino adicionado ao lado da palavra "Atenção" -->
+                                <i class="bi bi-bell-fill" style="color:black;"></i> <strong>Atenção!</strong> Seu lembrete "<strong>@lembrete.Titulo</strong>" está próximo de acontecer <strong>@lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</strong>.
                             </div>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div>
+
                 }
             }
             else
             {
+
                 <div class="toast align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="d-flex">
                         <div class="toast-body">
@@ -48,6 +52,7 @@
                         <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                 </div>
+
             }
         }
     </div>
@@ -62,6 +67,9 @@
         });
     </script>
 </head>
+
+
+
 <body>
     <div class="planner-container">
         <!-- Adicionando o título e a navegação -->
@@ -96,7 +104,7 @@
             @for (int i = 0; i < 7; i++)
             {
                 var diaAtual = (DayOfWeek)((i + 1) % 7);
-                var tarefasDia = tarefasPorDia.ContainsKey(diaAtual) ? tarefasPorDia[diaAtual] : new List<Planner.Models.Tarefa>();
+                var tarefasDia = Model.Where(t => t.Dia.DayOfWeek == diaAtual).ToList();
 
                 // Calcular a data atual em relação ao início da semana
                 var dataAtual = dataBase.AddDays(i);
@@ -123,7 +131,7 @@
 
                                 <!-- Dropdown minimalista para seleção do status -->
                                 <div class="dropdown d-inline">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownStatus_@tarefa.Id" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px;">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownStatus_@tarefa.Id" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 1px 2px; font-size: 0.75rem;">
                                         <!-- Ícone de seta para baixo -->
                                         <i class="bi bi-chevron-down"></i>
                                     </button>
@@ -134,7 +142,7 @@
                                                 <form asp-action="AlterarStatus" method="post" class="d-inline">
                                                     <input type="hidden" name="id" value="@tarefa.Id" />
                                                     <input type="hidden" name="novoStatus" value="@status" />
-                                                    <button type="submit" class="dropdown-item">
+                                                    <button type="submit" class="dropdown-item" style="font-size: 0.85rem;">
                                                         @status.ToString()
                                                     </button>
                                                 </form>
@@ -237,6 +245,7 @@
                 }
             </ul>
         </div>
+    </div>
 
     <script src="~/js/script.js"></script>
 </body>
