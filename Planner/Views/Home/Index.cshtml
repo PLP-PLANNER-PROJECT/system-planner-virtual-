@@ -174,6 +174,12 @@
                         <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
                     }
                 </ul>
+                    <a href="@Url.Action("Adicionar", "Lembrete")" style="color: inherit; text-decoration: none;">
+                        <button style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
+                            +
+                        </button>
+                        Adicionar Lembrete
+                    </a>
             </div>
 
             <div class="liga">
@@ -184,6 +190,12 @@
                         <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
                     }
                 </ul>
+                <a href="@Url.Action("Adicionar", "Lembrete")" style="color: inherit; text-decoration: none;">
+                    <button style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
+                        +
+                    </button>
+                    Adicionar Lembrete
+                </a>
             </div>
 
             <div class="reune">
@@ -194,6 +206,12 @@
                         <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
                     }
                 </ul>
+                <a href="@Url.Action("Adicionar", "Lembrete")" style="color: inherit; text-decoration: none;">
+                    <button style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
+                        +
+                    </button>
+                    Adicionar Lembrete
+                </a>
             </div>
 
             <div class="compras">
@@ -204,6 +222,12 @@
                         <li>@lembrete.Titulo - @lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</li>
                     }
                 </ul>
+                <a href="@Url.Action("Adicionar", "Lembrete")" style="color: inherit; text-decoration: none;">
+                    <button style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
+                        +
+                    </button>
+                    Adicionar Lembrete
+                </a>
             </div>
         </div>
 
@@ -232,7 +256,14 @@
                                     <strong>@meta.Titulo</strong> - Prazo: @meta.Prazo.ToString("dd/MM/yyyy")
                                 </a>
                             </li>
+                        
                         }
+                    <a href="@Url.Action("Adicionar", "Meta")" style="color: inherit; text-decoration: none;">
+                        <button style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
+                            +
+                        </button>
+                        Adicionar Meta
+                    </a>
                     }
                     else
                     {
