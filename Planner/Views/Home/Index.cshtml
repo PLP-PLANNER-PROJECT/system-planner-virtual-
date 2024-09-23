@@ -1,44 +1,45 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Planner.Models.Tarefa>
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planner Simples</title>
+    <title>Planner Semanal</title>
     <link rel="stylesheet" href="~/css/style.css">
 
-        <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
-            @if (ViewBag.LembretesHoje != null)
-            {
-                var lembretesHoje = (List<Planner.Models.Lembrete>)ViewBag.LembretesHoje;
+    <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+        @if (ViewBag.LembretesHoje != null)
+        {
+            var lembretesHoje = (List<Planner.Models.Lembrete>)ViewBag.LembretesHoje;
 
-                if (lembretesHoje.Any())
+            if (lembretesHoje.Any())
+            {
+                foreach (var lembrete in lembretesHoje)
                 {
-                    foreach (var lembrete in lembretesHoje)
-                    {
-                        <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    <strong>Atenção!</strong> Seu lembrete "<strong>@lembrete.Titulo</strong>" está próximo de acontecer <strong>@lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</strong>.
-                                </div>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="toast align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="d-flex">
                             <div class="toast-body">
-                                Você não tem lembretes próximos.
+                                <strong>Atenção!</strong> Seu lembrete "<strong>@lembrete.Titulo</strong>" está próximo de acontecer <strong>@lembrete.DataHora.ToString("dd/MM/yyyy HH:mm")</strong>.
                             </div>
-                            <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div>
                 }
             }
-            
-        </div>
+            else
+            {
+                <div class="toast align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Você não tem lembretes próximos.
+                        </div>
+                        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            }
+        }
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -49,82 +50,66 @@
             $('.toast').toast('show');
         });
     </script>
-
 </head>
 <body>
-    <div class="calendar-container">
-        <div id="calendar">
-            <div id="month">
-                <span id="prev">&#10094;</span>
-                <span id="month-name"></span>
-                <span id="next">&#10095;</span>
-            </div>
-            <div id="days-of-week">
-                <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
-            </div>
-            <div id="days"></div>
-        </div>
-    </div>
-
     <div class="planner-container">
-        <h1>Planner Semanal</h1>
         <div class="planner">
-            <div class="day">
-                <h2>Segunda</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
-            <div class="day">
-                <h2>Terça</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
-            <div class="day">
-                <h2>Quarta</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
-            <div class="day">
-                <h2>Quinta</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
-            <div class="day">
-                <h2>Sexta</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
-            <div class="day">
-                <h2>Sábado</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
-            <div class="day">
-                <h2>Domingo</h2>
-                <ul>
-                    <li>Atividade 1</li>
-                    <li>Atividade 2</li>
-                    <li>Atividade 3</li>
-                </ul>
-            </div>
+            @{
+                var diasDaSemana = new List<string> { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
+
+                Dictionary<DayOfWeek, List<Planner.Models.Tarefa>> tarefasPorDia = Model
+                .GroupBy(t => t.Dia.DayOfWeek)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+                var categoriaCores = new Dictionary<Planner.Models.Enum.Categoria, string>
+            {
+            { Planner.Models.Enum.Categoria.Trabalho, "#ff8c00" },  // Laranja
+            { Planner.Models.Enum.Categoria.Pessoal, "#1e90ff" },   // Azul
+            { Planner.Models.Enum.Categoria.Estudo, "#32cd32" },    // Verde
+            { Planner.Models.Enum.Categoria.Saude, "#ff1493" },     // Rosa
+            { Planner.Models.Enum.Categoria.Lazer, "#ff4500" },     // Vermelho
+            { Planner.Models.Enum.Categoria.Outros, "#8a2be2" }     // Roxo
+            };
+            }
+
+            @for (int i = 0; i < 7; i++)
+            {
+                var diaAtual = (DayOfWeek)((i + 1) % 7);
+                var tarefasDia = tarefasPorDia.ContainsKey(diaAtual) ? tarefasPorDia[diaAtual] : new List<Planner.Models.Tarefa>();
+
+                <div class="day">
+                    <h2>@diasDaSemana[i]</h2>
+                    <ul>
+                        @foreach (var tarefa in tarefasDia)
+                        {
+                            string cor = "#000000"; // Cor padrão
+                            if (categoriaCores.TryGetValue(tarefa.CategoriaAtividade, out var corEncontrada))
+                            {
+                                cor = corEncontrada;
+                            }
+
+                            <li style="color: @cor;">
+                                <a href="@Url.Action("Detalhes", "Tarefa", new { id = tarefa.Id })" style="color: inherit; text-decoration: none;">
+                                    <strong>@tarefa.Titulo</strong> - @tarefa.Inicio.ToString(@"hh\:mm") às @tarefa.Fim.ToString(@"hh\:mm")
+                                </a>
+                            </li>
+                        }
+                        <li>
+                            <a href="@Url.Action("Adicionar", "Tarefa")" style="color: inherit; text-decoration: none;">
+                                <button style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
+                                    +
+                                </button>
+                                Adicionar tarefa
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+
+
+
+        </div>
+        <div class="classes-container">
             <div class="anot">
                 <h2>Anotações</h2>
                 <ul>
@@ -158,7 +143,8 @@
                 </ul>
             </div>
         </div>
-      </div>
+    </div>
+
     <script src="~/js/script.js"></script>
 </body>
 </html>

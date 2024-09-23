@@ -10,12 +10,14 @@ namespace Planner.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly LembreteService _lembreteService;
+        private readonly TarefaService _tarefaService;
 
         // Injeta o serviço de lembretes
-        public HomeController(ILogger<HomeController> logger, LembreteService lembreteService)
+        public HomeController(ILogger<HomeController> logger, LembreteService lembreteService, TarefaService tarefaService)
         {
             _logger = logger;
             _lembreteService = lembreteService;
+            _tarefaService = tarefaService;
         }
 
         // Busca os lembretes a expirar e passa para a view
@@ -24,7 +26,11 @@ namespace Planner.Controllers
             // Busca os lembretes que vencem hoje ou nas próximas horas
             var lembretesHoje = await _lembreteService.GetLembretesParaHojeAsync();
             ViewBag.lembretesHoje = lembretesHoje;
-            return View();
+
+            var tarefasSemana = await _tarefaService.GetTarefasSemanaAsync();
+            var tarefasOrdenadas = tarefasSemana.OrderBy(t => t.Dia).ThenBy(t => t.Inicio).ToList();
+
+            return View(tarefasOrdenadas);
         }
 
         public IActionResult Privacy()

@@ -54,6 +54,18 @@ namespace Planner.Repository
         //        .ToListAsync();
         //}
 
+        // GetTarefasSemanaAsync é um método que retorna as tarefas da semana
+        public async Task<IEnumerable<Tarefa>> GetTarefasSemanaAsync()
+        {
+            // Busca as tarefas dentro do intervalo de uma semana a partir da data atual
+            return await _context.Tarefas
+                                 .Where(t => t.Dia >= DateTime.Today && t.Dia <= DateTime.Today.AddDays(7))
+                                 .ToListAsync();
+        }
+
+
+
+
         public async Task AddAsync(Tarefa tarefa)
         {
             await _context.Tarefas.AddAsync(tarefa);

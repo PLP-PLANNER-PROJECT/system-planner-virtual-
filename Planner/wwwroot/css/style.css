@@ -77,6 +77,19 @@ body {
     margin-top: 150px;
 }
 
+.classes-container {
+    display: flex; /* Ativa o flexbox */
+    justify-content: space-between; /* Espaço entre os itens */
+    flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se necessário */
+    margin: 20px 0; /* Adiciona uma margem superior e inferior */
+}
+
+    .classes-container > div {
+        flex: 1; /* Faz cada item ocupar espaço igual */
+        margin: 0 10px; /* Margem entre os itens */
+    }
+
+
 
 h1 {
     text-align: center;
@@ -84,15 +97,10 @@ h1 {
 }
 
 .planner {
-    text-align: center;
+    display: flex; /* Muda para flexbox */
+   
+    justify-content: space-between; /* Espaçamento entre os dias */
     margin: 2px;
-    border: 20px;
-    display: grid;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit,minmax(20%, 1fr));
-    gap: 1px;
 }
 
 .day {
@@ -301,3 +309,8 @@ h1 {
             .compras ul li:hover {
                 background-color: #fff;
             }
+
+ul li a {
+    color: inherit; /* Herda a cor do elemento pai */
+    text-decoration: none; /* Remove o sublinhado */
+}

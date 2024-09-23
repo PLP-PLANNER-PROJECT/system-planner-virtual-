@@ -15,6 +15,7 @@ namespace Planner.IRepository
 
         //Task<IEnumerable<Tarefa>> GetByDataAsync(DateTime data);
 
+        Task<IEnumerable<Tarefa>> GetTarefasSemanaAsync();
         Task AddAsync(Tarefa tarefa);
         Task UpdateAsync(Tarefa tarefa);
         Task DeleteAsync(int id);

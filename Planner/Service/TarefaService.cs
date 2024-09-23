@@ -44,6 +44,12 @@ namespace Planner.Service
             await _tarefaRepository.AddAsync(tarefa);
         }
 
+        // GetTarefasSemanaAsync é um método que retorna as tarefas da semana
+        public virtual async Task<IEnumerable<Tarefa>> GetTarefasSemanaAsync()
+        {
+            return await _tarefaRepository.GetTarefasSemanaAsync();
+        }
+
         public virtual async Task UpdateTarefaAsync(Tarefa tarefa)
         {
             await _tarefaRepository.UpdateAsync(tarefa);

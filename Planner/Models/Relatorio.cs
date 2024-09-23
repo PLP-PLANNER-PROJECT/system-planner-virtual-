@@ -8,6 +8,7 @@ namespace Planner.Models
 
         public int QuantidadeMetasCriadas { get; set; }
         public int QuantidadeMetasCumpridas { get; set; }
+        // É string para poder ser exibido no formato de porcentagem .2F
         public string PorcentagemMetasCumpridas { get; set; }
         public int QuantidadeMetasNaoCumpridas { get; set; }
         public int QuantidadeTarefasCriadas { get; set; }

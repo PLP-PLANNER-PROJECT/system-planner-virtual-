@@ -4,63 +4,126 @@
     ViewData["Title"] = "Adicionar Tarefa";
 }
 
-<h2>@ViewData["Title"]</h2>
+<style>
+    /* Estilização específica para o formulário de adição de tarefas */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-<form asp-action="Adicionar" method="post">
-    <div class="form-group">
-        <label asp-for="Titulo" class="control-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span asp-validation-for="Titulo" class="text-danger"></span>
-    </div>
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Descricao" class="control-label"></label>
-        <input asp-for="Descricao" class="form-control" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
-    </div>
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-    <div class="form-group">
-        <label asp-for="CategoriaAtividade" class="control-label"></label>
-        <select asp-for="CategoriaAtividade" class="form-control">
-            <option value="">Selecione</option>
-            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
-            {
-                <option value="@categoria">@categoria</option>
-            }
-        </select>
-        <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
-    </div>
+    .form-control {
+        border-radius: 5px;
+    }
 
-    
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Inicio" class="control-label"></label>
-        <input asp-for="Inicio" class="form-control" type="time" />
-        <span asp-validation-for="Inicio" class="text-danger"></span>
-    </div>
+    .btn {
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
 
-    <div class="form-group">
-        <label asp-for="BlocoDuracao" class="control-label"></label>
-        <select asp-for="BlocoDuracao" class="form-control">
-            <option value="">Selecione a duração</option>
-            @foreach (var duracao in Enum.GetValues(typeof(Planner.Models.Enum.BlocoDuracao)).Cast<Planner.Models.Enum.BlocoDuracao>())
-            {
-                <option value="@duracao">@duracao</option>
-            }
-        </select>
-        <span asp-validation-for="BlocoDuracao" class="text-danger"></span>
-    </div>
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
 
-    <div class="form-group">
-        <label asp-for="Dia" class="control-label"></label>
-        <input asp-for="Dia" class="form-control" type="date" />
-        <span asp-validation-for="Dia" class="text-danger"></span>
-    </div>
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
 
-    @* apresentar mensagens de erro em geral*@
-    <div asp-validation-summary="All" class="text-danger"></div>
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
 
-    <button type="submit" class="btn btn-primary">Adicionar</button>
-</form>
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
 
-<a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    }
+</style>
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="Adicionar" method="post">
+        <div class="form-group">
+            <label asp-for="Titulo" class="control-label"></label>
+            <input asp-for="Titulo" class="form-control" placeholder="Digite o título da tarefa" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Descricao" class="control-label"></label>
+            <textarea asp-for="Descricao" class="form-control" rows="3" placeholder="Descreva a tarefa"></textarea>
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoriaAtividade" class="control-label"></label>
+            <select asp-for="CategoriaAtividade" class="form-control">
+                <option value="">Selecione a categoria</option>
+                @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+                {
+                    <option value="@categoria">@categoria</option>
+                }
+            </select>
+            <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Inicio" class="control-label"></label>
+            <input asp-for="Inicio" class="form-control" type="time" placeholder="HH:MM" />
+            <span asp-validation-for="Inicio" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BlocoDuracao" class="control-label"></label>
+            <select asp-for="BlocoDuracao" class="form-control">
+                <option value="">Selecione a duração</option>
+                @foreach (var duracao in Enum.GetValues(typeof(Planner.Models.Enum.BlocoDuracao)).Cast<Planner.Models.Enum.BlocoDuracao>())
+                {
+                    <option value="@duracao">@duracao</option>
+                }
+            </select>
+            <span asp-validation-for="BlocoDuracao" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Dia" class="control-label"></label>
+            <input asp-for="Dia" class="form-control" type="date" />
+            <span asp-validation-for="Dia" class="text-danger"></span>
+        </div>
+
+        @* Apresentar mensagens de erro em geral *@
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+            <a href="/" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>

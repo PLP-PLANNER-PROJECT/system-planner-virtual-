@@ -4,55 +4,131 @@
     ViewData["Title"] = "Editar Meta";
 }
 
-<h1>Editar Meta</h1>
+<style>
+    /* Estilo para o container principal */
+    .form-container {
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-<form asp-action="Editar">
-    <input type="hidden" asp-for="Id" />
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Titulo" class="control-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span asp-validation-for="Titulo" class="text-danger"></span>
-    </div>
+    /* Estilo para os grupos de formulário */
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Descricao" class="control-label"></label>
-        <input asp-for="Descricao" class="form-control" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
-    </div>
+    .form-group label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+    }
 
-    <div class="form-group">
-        <label asp-for="CategoriaAtividade" class="control-label"></label>
-        <select asp-for="CategoriaAtividade" class="form-control">
-            <option value="">Selecione</option>
-            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
-            {
-                <option value="@categoria">@categoria</option>
-            }
-        </select>
-        <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
-    </div>
+    .form-control {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
 
-    @* TODO: Adicionar campo para marcar como concluida ou outro enum *@
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 
-    <div class="form-group">
-        <label asp-for="StatusMeta" class="control-label"></label>
-        <select asp-for="StatusMeta" class="form-control">
-            <option value="">Selecione</option>
-            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusMeta)).Cast<Planner.Models.Enum.StatusMeta>())
-            {
-                <option value="@status">@status</option>
-            }
-        </select>
-        <span asp-validation-for="StatusMeta" class="text-danger"></span>
-    </div>
+    /* Estilo para as mensagens de validação */
+    .text-danger {
+        font-size: 0.9em;
+        color: #e3342f;
+    }
 
-    <div class="form-group">
-        <label asp-for="Prazo" class="control-label"></label>
-        <input asp-for="Prazo" type="date" class="form-control" />
-        <span asp-validation-for="Prazo" class="text-danger"></span>
-    </div>
+    /* Estilo para os botões */
+    .btn {
+        margin-top: 10px;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+
+    }
+</style>
+
+<div class="form-container">
+    <h1>Editar Meta</h1>
+
+    <form asp-action="Editar">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="Titulo" class="control-label"></label>
+            <input asp-for="Titulo" class="form-control" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Descricao" class="control-label"></label>
+            <input asp-for="Descricao" class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoriaAtividade" class="control-label"></label>
+            <select asp-for="CategoriaAtividade" class="form-control">
+                <option value="">Selecione</option>
+                @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+                {
+                    <option value="@categoria">@categoria</option>
+                }
+            </select>
+            <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StatusMeta" class="control-label"></label>
+            <select asp-for="StatusMeta" class="form-control">
+                <option value="">Selecione</option>
+                @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusMeta)).Cast<Planner.Models.Enum.StatusMeta>())
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+            <span asp-validation-for="StatusMeta" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Prazo" class="control-label"></label>
+            <input asp-for="Prazo" type="date" class="form-control" />
+            <span asp-validation-for="Prazo" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

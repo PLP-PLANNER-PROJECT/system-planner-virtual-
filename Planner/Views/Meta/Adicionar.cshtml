@@ -4,51 +4,117 @@
     ViewData["Title"] = "Adicionar Meta";
 }
 
-<h1>Adicionar Meta</h1>
+<style>
+    /* Estilização específica para o formulário de adição de metas */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-<form asp-action="Adicionar">
-    <div class="form-group">
-        <label asp-for="Titulo" class="control-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span asp-validation-for="Titulo" class="text-danger"></span>
-    </div>
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Descricao" class="control-label"></label>
-        <input asp-for="Descricao" class="form-control" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
-    </div>
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-    <div class="form-group">
-        <label asp-for="CategoriaAtividade" class="control-label"></label>
-        <select asp-for="CategoriaAtividade" class="form-control">
-            <option value="">Selecione</option>
-            @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
-            {
-                <option value="@categoria">@categoria</option>
-            }
-        </select>
-        <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
-    </div>
+    .form-control {
+        border-radius: 5px;
+    }
 
-    <div class="form-group">
-        <label asp-for="StatusMeta" class="control-label"></label>
-        <select asp-for="StatusMeta" class="form-control">
-            <option value="">Selecione</option>
-            @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusMeta)).Cast<Planner.Models.Enum.StatusMeta>())
-            {
-                <option value="@status">@status</option>
-            }
-        </select>
-        <span asp-validation-for="StatusMeta" class="text-danger"></span>
-    </div>
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Prazo" class="control-label"></label>
-        <input asp-for="Prazo" type="date" class="form-control" />
-        <span asp-validation-for="Prazo" class="text-danger"></span>
-    </div>
+    .btn {
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    }
+</style>
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="Adicionar" method="post">
+        <div class="form-group">
+            <label asp-for="Titulo" class="control-label"></label>
+            <input asp-for="Titulo" class="form-control" placeholder="Digite o título da meta" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Descricao" class="control-label"></label>
+            <textarea asp-for="Descricao" class="form-control" rows="3" placeholder="Descreva a meta"></textarea>
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoriaAtividade" class="control-label"></label>
+            <select asp-for="CategoriaAtividade" class="form-control">
+                <option value="">Selecione a categoria</option>
+                @foreach (var categoria in Enum.GetValues(typeof(Planner.Models.Enum.Categoria)).Cast<Planner.Models.Enum.Categoria>())
+                {
+                    <option value="@categoria">@categoria</option>
+                }
+            </select>
+            <span asp-validation-for="CategoriaAtividade" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StatusMeta" class="control-label"></label>
+            <select asp-for="StatusMeta" class="form-control">
+                <option value="">Selecione o status</option>
+                @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusMeta)).Cast<Planner.Models.Enum.StatusMeta>())
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+            <span asp-validation-for="StatusMeta" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Prazo" class="control-label"></label>
+            <input asp-for="Prazo" type="date" class="form-control" placeholder="Selecione o prazo" />
+            <span asp-validation-for="Prazo" class="text-danger"></span>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>

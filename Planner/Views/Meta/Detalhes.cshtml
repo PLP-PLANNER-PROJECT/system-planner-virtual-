@@ -4,26 +4,116 @@
     ViewData["Title"] = "Detalhes da Meta";
 }
 
-<h1>Detalhes da Meta</h1>
+<style>
+    /* CSS específico para a view de detalhes da meta */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-<div>
-    <h4>@Model.Titulo</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-3">Título</dt>
-        <dd class="col-sm-9">@Model.Titulo</dd>
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-        <dt class="col-sm-3">Descrição</dt>
-        <dd class="col-sm-9">@Model.Descricao</dd>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
 
-        <dt class="col-sm-3">Categoria</dt>
-        <dd class="col-sm-9">@Model.CategoriaAtividade</dd>
+    dt {
+        font-weight: bold;
+        color: #555;
+        width: 30%;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 5px 0 0 5px;
+    }
 
-        <dt class="col-sm-3">Status</dt>
-        <dd class="col-sm-9">@Model.StatusMeta</dd>
+    dd {
+        margin-left: 0; /* Remove o recuo padrão */
+        color: #333;
+        width: 70%;
+        padding: 10px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-left: none;
+        border-radius: 0 5px 5px 0;
+    }
 
-        <dt class="col-sm-3">Prazo</dt>
-        <dd class="col-sm-9">@Model.Prazo.ToShortDateString()</dd>
-    </dl>
-    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    hr {
+        margin: 20px 0;
+        border: none;
+        border-top: 1px solid #ddd;
+    }
+
+    .btn {
+        margin-top: 20px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: auto;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    }
+</style>
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <div>
+        <h4>@Model.Titulo</h4>
+        <hr />
+        <dl class="row">
+            <dt>Título</dt>
+            <dd>@Model.Titulo</dd>
+
+            <dt>Descrição</dt>
+            <dd>@Model.Descricao</dd>
+
+            <dt>Categoria</dt>
+            <dd>@Model.CategoriaAtividade</dd>
+
+            <dt>Status</dt>
+            <dd>@Model.StatusMeta</dd>
+
+            <dt>Prazo</dt>
+            <dd>@Model.Prazo.ToShortDateString()</dd>
+        </dl>
+
+        <div class="button-container">
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
 </div>
