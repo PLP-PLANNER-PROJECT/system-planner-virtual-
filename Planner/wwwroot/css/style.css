@@ -314,3 +314,54 @@ ul li a {
     color: inherit; /* Herda a cor do elemento pai */
     text-decoration: none; /* Remove o sublinhado */
 }
+
+.meta {
+    font-family: 'Klee One', regular;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #FFEE75;
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    
+    position: absolute; /* Tornar a sidebar flutuante */
+    top: 225px;
+    right: 30px; /* Distância da borda direita */
+    width: 200px; /* Definir a largura da sidebar */
+    background-color: #FFEE75; /* Fundo da sidebar */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Borda arredondada */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    z-index: 1; /* Trazer a sidebar para frente */
+    max-height: 405px;
+    overflow-y: auto; /* Adiciona uma barra de rolagem se necessário */
+}
+
+.meta h2 {
+    font-family: 'Alex Brush', regular;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.meta ul {
+    list-style-type: none;
+    padding: 1px;
+}
+
+.meta ul li {
+    background-color: #fff;
+    padding: 6px;
+    border-radius: 3px;
+    border-bottom: 1px solid #000;
+}
+
+.meta ul li:hover {
+    background-color: #fff;
+}
+
+.planner-container {
+    margin-right: 180px; /* Espaço para a sidebar */
+}

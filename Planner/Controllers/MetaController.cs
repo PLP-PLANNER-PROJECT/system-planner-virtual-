@@ -23,21 +23,22 @@ namespace Planner.Controllers
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] Categoria? categoria = null, [FromQuery] StatusMeta? status = null, [FromQuery] int? mes = null, [FromQuery] int? ano = null)
         {
-            IEnumerable<Meta> metas;
+            IEnumerable<Meta> metas = await _metaService.GetAllMetasAsync();
 
-            if (categoria.HasValue)
+            if (categoria.HasValue && status.HasValue)
             {
-                metas = await _metaService.GetMetasByCategoriaAsync(categoria.Value);
+                metas = metas.Where(m => m.CategoriaAtividade == categoria.Value && m.StatusMeta == status.Value);
+            }
+            else if (categoria.HasValue)
+            {
+                metas = metas.Where(m => m.CategoriaAtividade == categoria.Value);
             }
             else if (status.HasValue)
             {
-                metas = await _metaService.GetMetasByStatusAsync(status.Value);
-            }
-            else
-            {
-                metas = await _metaService.GetAllMetasAsync();
+                metas = metas.Where(m => m.StatusMeta == status.Value);
             }
 
+            // Filtro por mês e ano
             if (mes.HasValue)
             {
                 metas = metas.Where(m => m.Prazo.Month == mes.Value);
@@ -48,10 +49,16 @@ namespace Planner.Controllers
                 metas = metas.Where(m => m.Prazo.Year == ano.Value);
             }
 
-            // Ordenar as metas pela data (Prazo)
-            metas = metas.OrderBy(m => m.Prazo);
+            // Adicionar filtro para exibir apenas as metas do dia atual
+            var metasHoje = metas
+                .Where(m => m.Prazo.Date >= DateTime.Today) // Exibe metas que ainda não passaram
+                .OrderBy(m => m.Prazo) // Ordena pelo prazo
+                .ToList();
 
-            return View(metas.ToList()); // Convertendo IEnumerable<Meta> para List<Meta>
+
+            ViewBag.MetasHoje = metasHoje; // Passando para a ViewBag
+
+            return View(metasHoje); // Retornando apenas as metas do dia
         }
 
         // GET: /Meta/Detalhes/5
@@ -82,6 +89,11 @@ namespace Planner.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (meta.Prazo == default(DateTime))
+                {
+                    meta.Prazo = DateTime.Now.Date;
+                }
+
                 await _metaService.AddMetaAsync(meta);
                 return RedirectToAction(nameof(Index)); // Redireciona para a ação Index após adicionar a meta
             }
@@ -154,4 +166,3 @@ namespace Planner.Controllers
         }
     }
 }
- 
