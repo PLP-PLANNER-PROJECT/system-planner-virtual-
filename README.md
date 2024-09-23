@@ -11,7 +11,7 @@ O Planner Virtual System é um Sistema para gerenciar tarefas, compromissos e at
 
 - **Linguagem:** C#
 - **Framework:** .NET (ASP.NET Core)
-- **Banco de Dados:** SQL Server
+- **Banco de Dados:** SQLite
 - **Frontend:** Bootstrap 5.3, HTML, JavaScript (para interações dinâmicas)
 - **Notificações Dinâmicas:** Toasts para alertas visuais de lembretes
 
