@@ -25,36 +25,62 @@ namespace Planner.Controllers
             _metaService = metaService;
         }
 
-        // Busca os lembretes a expirar e passa para a view
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(DateTime? dataReferencia)
         {
-            // Busca os lembretes que vencem hoje ou nas próximas horas
+            // Se a data de referência não for fornecida, usa a data atual
+            var dataBase = dataReferencia ?? DateTime.Now;
+
+            // Calcula o primeiro e o último dia da semana com base na data de referência
+            var primeiroDiaDaSemana = dataBase.AddDays(-(int)dataBase.DayOfWeek + 1);
+            var ultimoDiaDaSemana = primeiroDiaDaSemana.AddDays(6);
+
+            // Busca as tarefas para a semana selecionada
+            var tarefasSemana = await _tarefaService.GetTarefasPorPeriodoAsync(primeiroDiaDaSemana, ultimoDiaDaSemana);
+            var tarefasOrdenadas = tarefasSemana.OrderBy(t => t.Dia).ThenBy(t => t.Inicio).ToList();
+
+            // Busca todas as metas e lembretes (mantém o que já existia)
             var lembretesHoje = await _lembreteService.GetLembretesParaHojeAsync();
             ViewBag.lembretesHoje = lembretesHoje;
 
-            var tarefasSemana = await _tarefaService.GetTarefasSemanaAsync();
-            var tarefasOrdenadas = tarefasSemana.OrderBy(t => t.Dia).ThenBy(t => t.Inicio).ToList();
-
-            // Busca todas as metas
             var metas = await _metaService.GetAllMetasAsync();
-            _logger.LogInformation($"Total de metas retornadas: {metas.Count()}");
+            ViewBag.MetasFuturas = metas.Where(m => m.Prazo.Date >= DateTime.Today).OrderBy(m => m.Prazo).ToList();
 
-            // Log para verificar cada meta
-            foreach (var meta in metas)
-            {
-                _logger.LogInformation($"Meta: {meta.Titulo}, Prazo: {meta.Prazo.ToShortDateString()}");
-            }
-
-            // Filtra metas para hoje e próximos dias
-            ViewBag.MetasFuturas = metas
-                .Where(m => m.Prazo.Date >= DateTime.Today) // Exibe metas que ainda não passaram
-                .OrderBy(m => m.Prazo)
-                .ToList();
-
-
+            // Passa a data base para a view para facilitar a navegação
+            ViewBag.DataBase = dataBase;
 
             return View(tarefasOrdenadas);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AlterarStatus(int id, StatusTarefa novoStatus)
+        {
+            try
+            {
+                var tarefa = await _tarefaService.GetTarefaByIdAsync(id);
+
+                if (tarefa == null)
+                {
+                    _logger.LogWarning($"Tarefa com ID {id} não encontrada.");
+                    return NotFound("Tarefa não encontrada.");
+                }
+
+                // Atualiza o status da tarefa
+                tarefa.StatusTarefa = novoStatus;
+                await _tarefaService.UpdateTarefaAsync(tarefa);
+
+                _logger.LogInformation($"Status da tarefa {tarefa.Titulo} atualizado para {novoStatus}.");
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao alterar o status da tarefa.");
+                return StatusCode(500, "Erro interno ao alterar o status da tarefa.");
+            }
+        }
+
+
 
         public IActionResult Privacy()
         {

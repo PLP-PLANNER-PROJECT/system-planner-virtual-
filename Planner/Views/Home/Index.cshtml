@@ -1,12 +1,22 @@
 ﻿@model IEnumerable<Planner.Models.Tarefa>
 
+@{
+    var dataBase = (DateTime)ViewBag.DataBase;
+    var dataAnterior = dataBase.AddDays(-7);
+    var dataProxima = dataBase.AddDays(7);
+    var diasSemana = new[] { "domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado" };
+
+}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planner Semanal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/style.css">
+
 
     <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
         @if (ViewBag.LembretesHoje != null)
@@ -53,6 +63,16 @@
 </head>
 <body>
     <div class="planner-container">
+        <!-- Adicionando o título e a navegação -->
+        <div class="header-container">
+            <h1 class="planner-title">Planner Semanal</h1>
+            <div class="navigation-buttons">
+                <a href="@Url.Action("Index", new { dataReferencia = dataAnterior })" class="btn btn-outline-primary">Semana Anterior</a>
+                
+                <a href="@Url.Action("Index", new { dataReferencia = dataProxima })" class="btn btn-outline-primary">Próxima Semana</a>
+            </div>
+        </div>
+
         <div class="planner">
             @{
                 var diasDaSemana = new List<string> { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
@@ -77,21 +97,50 @@
                 var diaAtual = (DayOfWeek)((i + 1) % 7);
                 var tarefasDia = tarefasPorDia.ContainsKey(diaAtual) ? tarefasPorDia[diaAtual] : new List<Planner.Models.Tarefa>();
 
+                // Calcular a data atual em relação ao início da semana
+                var dataAtual = dataBase.AddDays(i);
+                var diaDaSemana = diasDaSemana[i]; // Nome do dia da semana
+
                 <div class="day">
-                    <h2>@diasDaSemana[i]</h2>
+                    <!-- Exibir o nome do dia da semana e a data no formato desejado -->
+                    <h2>@diaDaSemana @dataAtual.ToString("dd/MM")</h2>
                     <ul>
                         @foreach (var tarefa in tarefasDia)
                         {
-                            string cor = "#000000"; // Cor padrão
-                            if (categoriaCores.TryGetValue(tarefa.CategoriaAtividade, out var corEncontrada))
-                            {
-                                cor = corEncontrada;
-                            }
+                            var corCategoria = categoriaCores.ContainsKey(tarefa.CategoriaAtividade)
+                            ? categoriaCores[tarefa.CategoriaAtividade]
+                            : "#000000"; // Cor padrão
 
-                            <li style="color: @cor;">
+                            var statusClasse = tarefa.StatusTarefa == Planner.Models.Enum.StatusTarefa.executada
+                            ? "riscado"
+                            : "";
+
+                            <li style="color: @corCategoria;" class="@statusClasse">
                                 <a href="@Url.Action("Detalhes", "Tarefa", new { id = tarefa.Id })" style="color: inherit; text-decoration: none;">
                                     <strong>@tarefa.Titulo</strong> - @tarefa.Inicio.ToString(@"hh\:mm") às @tarefa.Fim.ToString(@"hh\:mm")
                                 </a>
+
+                                <!-- Dropdown minimalista para seleção do status -->
+                                <div class="dropdown d-inline">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownStatus_@tarefa.Id" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px;">
+                                        <!-- Ícone de seta para baixo -->
+                                        <i class="bi bi-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownStatus_@tarefa.Id">
+                                        @foreach (var status in Enum.GetValues(typeof(Planner.Models.Enum.StatusTarefa)).Cast<Planner.Models.Enum.StatusTarefa>())
+                                        {
+                                            <li>
+                                                <form asp-action="AlterarStatus" method="post" class="d-inline">
+                                                    <input type="hidden" name="id" value="@tarefa.Id" />
+                                                    <input type="hidden" name="novoStatus" value="@status" />
+                                                    <button type="submit" class="dropdown-item">
+                                                        @status.ToString()
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </li>
                         }
                         <li>
@@ -105,6 +154,7 @@
                     </ul>
                 </div>
             }
+
         </div>
         <div class="classes-container">
             <div class="anot">
@@ -167,6 +217,7 @@
                 }
             </ul>
         </div>
+
     <script src="~/js/script.js"></script>
 </body>
 </html>

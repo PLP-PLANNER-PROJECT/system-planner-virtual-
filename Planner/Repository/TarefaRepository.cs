@@ -63,7 +63,14 @@ namespace Planner.Repository
                                  .ToListAsync();
         }
 
-
+        // GetTarefasPorPeriodoAsync é um método que retorna as tarefas dentro de um intervalo de datas
+        public async Task<IEnumerable<Tarefa>> GetTarefasPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
+        {
+            // Busca as tarefas dentro do intervalo de datas fornecido
+            return await _context.Tarefas
+                                 .Where(t => t.Dia >= dataInicio && t.Dia <= dataFim)
+                                 .ToListAsync();
+        }
 
 
         public async Task AddAsync(Tarefa tarefa)

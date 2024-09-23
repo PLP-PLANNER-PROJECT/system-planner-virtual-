@@ -64,5 +64,10 @@ namespace Planner.Service
         {
             await _tarefaRepository.DeleteAllAsync();
         }
+
+        public virtual async Task<IEnumerable<Tarefa>> GetTarefasPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
+        {
+            return await _tarefaRepository.GetTarefasPorPeriodoAsync(dataInicio, dataFim);
+        }
     }
 }
