@@ -15,7 +15,7 @@ namespace Planner.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configura 'Relatorio' como uma entidade sem chave
+           
             modelBuilder.Entity<Relatorio>().HasNoKey();
         }
 
