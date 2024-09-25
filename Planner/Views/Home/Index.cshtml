@@ -19,6 +19,41 @@
     <link rel="stylesheet" href="~/css/style.css">
 
 
+
+
+    
+     <style>
+        /* Mover o Planner para cima */
+        .planner-container {
+            margin-top: 30px;
+            
+        }
+        /* Aumentar o tamanho da fonte do título e outros textos */
+        .planner-title {
+            font-size: 47px; /* Tamanho da fonte para o título */
+        }
+
+        .day h2 {
+            font-size: 18px; /* Tamanho da fonte para os dias da semana */
+        }
+
+        .day ul li {
+            font-size: 15px; /* Tamanho da fonte para as tarefas */
+        }
+
+        .meta h2 {
+            font-size: 15px; /* Tamanho da fonte para o título de metas futuras */
+        }
+
+        .meta ul li {
+            font-size: 15px; /* Tamanho da fonte para o conteúdo das metas futuras */
+        }
+    </style>
+
+
+
+
+
     <div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
         @if (ViewBag.LembretesHoje != null)
         {
@@ -73,6 +108,7 @@
 <body>
     <div class="planner-container">
         <!-- Adicionando o título e a navegação -->
+
         <div class="header-container">
             <h1 class="planner-title">Planner Semanal</h1>
             <div class="navigation-buttons">
@@ -92,6 +128,7 @@
 
                 var categoriaCores = new Dictionary<Planner.Models.Enum.Categoria, string>
             {
+                
             { Planner.Models.Enum.Categoria.Trabalho, "#ff8c00" },  // Laranja
             { Planner.Models.Enum.Categoria.Pessoal, "#1e90ff" },   // Azul
             { Planner.Models.Enum.Categoria.Estudo, "#32cd32" },    // Verde
@@ -99,12 +136,13 @@
             { Planner.Models.Enum.Categoria.Lazer, "#ff4500" },     // Vermelho
             { Planner.Models.Enum.Categoria.Outros, "#8a2be2" }     // Roxo
             };
+
             }
 
             @for (int i = 0; i < 7; i++)
             {
                 var diaAtual = (DayOfWeek)((i + 1) % 7);
-                var tarefasDia = Model.Where(t => t.Dia.DayOfWeek == diaAtual).ToList();
+                var tarefasDia = tarefasPorDia.ContainsKey(diaAtual) ? tarefasPorDia[diaAtual] : new List<Planner.Models.Tarefa>();
 
                 // Calcular a data atual em relação ao início da semana
                 var dataAtual = dataBase.AddDays(i);
